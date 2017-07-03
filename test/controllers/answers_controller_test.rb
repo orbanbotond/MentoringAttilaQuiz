@@ -17,7 +17,7 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create answer" do
     assert_difference('Answer.count') do
-      post answers_url, params: { answer: { correct: @answer.correct, name: @answer.name } }
+      post answers_url, params: { answer: { name: @answer.name, question_id: @answer.question_id } }
     end
 
     assert_redirected_to answer_url(Answer.last)
@@ -34,7 +34,7 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update answer" do
-    patch answer_url(@answer), params: { answer: { correct: @answer.correct, name: @answer.name } }
+    patch answer_url(@answer), params: { answer: { name: @answer.name, question_id: @answer.question_id } }
     assert_redirected_to answer_url(@answer)
   end
 

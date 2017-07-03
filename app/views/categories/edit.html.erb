@@ -1,6 +1,5 @@
-<h1>Editing Category</h1>
+<%= link_to 'Back to categories', categories_path, {:class => 'h3', :style=>'color: 0;'}%>
 
 <%= render 'form', category: @category %>
 
-<%= link_to 'Show', @category %> |
-<%= link_to 'Back', categories_path %>
+<%= button_to 'Delete category', @category, method: :delete, data: { confirm: 'Are you sure?' } %>
