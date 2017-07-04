@@ -1,5 +1,10 @@
-<%= link_to 'Back to categories', categories_path, {:class => 'h3', :style=>'color: 0;'}%>
+<div style="width: 400px; margin: 0 auto;">
 
-<%= render 'form', category: @category %>
+	<%= link_to 'Back to categories', categories_path, {:class => 'h3', :style=>'color: 0;'}%>
 
-<%= button_to 'Delete category', @category, method: :delete, data: { confirm: 'Are you sure?' } %>
+	<%= render 'form', category: @category %>
+
+	<br>
+	<%= button_to 'Delete category', @category, method: :delete, class: "btn btn-default", data: { confirm: 'Are you sure?' } %>
+
+</div>

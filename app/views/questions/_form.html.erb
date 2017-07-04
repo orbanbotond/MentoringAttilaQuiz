@@ -25,3 +25,8 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+<%= bootstrap_form_for(question, {class: "form-horizontal"}) do |f| %>
+  <%= f.text_field :name%>
+  <%= f.submit "Save question"%>
+<% end %>

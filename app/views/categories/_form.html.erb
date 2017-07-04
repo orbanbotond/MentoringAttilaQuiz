@@ -1,8 +1,9 @@
 <hr>
+
 <div style="width: 500px;">
-<%= bootstrap_form_for(category, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
+<%= bootstrap_form_for(category, {class: "form-horizontal"}) do |f| %>
   <%= f.text_field :name%>
   <%= f.text_area :description %>
-  <%= f.submit "Save category",  class: "col-sm-offset-3 col-sm-4" %>
+  <%= f.submit "Save category"%>
 <% end %>
 </div>
