@@ -44,6 +44,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
+  gem 'slim', '~> 3.0'
+  gem 'slim-rails', '~> 3.0'
 end
 
 group :development do

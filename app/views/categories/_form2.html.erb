@@ -1,0 +1,9 @@
+<hr>
+
+<div style="width: 500px;">
+<%= bootstrap_form_for(category, {class: "form-horizontal"}) do |f| %>
+  <%= f.text_field :name%>
+  <%= f.text_area :description %>
+  <%= f.submit "Save category"%>
+<% end %>
+</div>
