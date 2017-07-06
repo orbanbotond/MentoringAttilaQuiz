@@ -46,6 +46,10 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'slim', '~> 3.0'
   gem 'slim-rails', '~> 3.0'
+
+  gem 'nested_form_fields'
+  gem 'nested_form'
+  gem 'nested_scaffold'
 end
 
 group :development do

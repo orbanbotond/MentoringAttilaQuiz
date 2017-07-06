@@ -1,0 +1,23 @@
+doctype html
+html
+  body
+    = bootstrap_form_for(@question, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9") do |f|
+      
+      = f.text_field :name
+
+      = f.collection_select :category_id, Category.order(:name),:id,:name, include_blank: true
+
+      hr
+      h4 Answers:
+
+      = f.fields_for :answers do |ff|
+        = render 'answer_fields', f: ff
+
+      hr
+
+      /= link_to_add_fields "Add Answer", f, :answers
+
+      hr
+
+      = f.submit
+

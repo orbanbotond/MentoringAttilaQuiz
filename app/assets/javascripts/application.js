@@ -10,6 +10,16 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require nested_form_fields
+//= require jquery_nested_form
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+
+function add_fields(link, association, content) {
+  var new_id = new Date().getTime();
+  var regexp = new RegExp("new_" + association, "g");
+  $(link).up().insert({
+        before: content.replace(regexp, new_id)
+  });
+}

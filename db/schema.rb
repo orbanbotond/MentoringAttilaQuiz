@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170703160932) do
+ActiveRecord::Schema.define(version: 20170706085538) do
 
   create_table "answers", force: :cascade do |t|
     t.string "name"
+    t.boolean "correct"
     t.integer "question_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -29,8 +30,10 @@ ActiveRecord::Schema.define(version: 20170703160932) do
 
   create_table "questions", force: :cascade do |t|
     t.string "name"
+    t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_questions_on_category_id"
   end
 
 end

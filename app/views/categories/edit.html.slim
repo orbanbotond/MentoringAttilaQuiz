@@ -5,4 +5,5 @@ html
       = link_to 'Back to categories', categories_path, {:class => 'h3', :style=>'color: 0;'}
       = render 'form', category: @category
       br
-      = button_to 'Delete category', @category, method: :delete, class: "btn btn-default", data: { confirm: 'Are you sure?' }
+      div style="text-align: center"
+        = button_to 'Delete category', @category, method: :delete, class: "btn btn-default", data: { confirm: 'Are you sure?' }

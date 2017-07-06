@@ -16,7 +16,7 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     3.times do
-      @question.answers.build
+      @question.answers.new
     end
   end
 
@@ -27,6 +27,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
+
     @question = Question.new(question_params)
 
     respond_to do |format|
@@ -72,6 +73,6 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:name)
+      params.require(:question).permit(:name, :category_id, {answers_attributes: [:name, :correct, :id]})
     end
 end
