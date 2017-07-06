@@ -5,11 +5,11 @@ class QuestionsController < ApplicationController
   # GET /questions.json
   def index
     @questions = Question.all
-  end
-
-  # GET /questions/1
-  # GET /questions/1.json
-  def show
+    if params[:search]
+      @questions = Question.search(params[:search]).order("created_at DESC")
+    else
+      @questions = Question.all.order("created_at DESC")
+    end
   end
 
   # GET /questions/new
@@ -32,8 +32,8 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
-        format.json { render :show, status: :created, location: @question }
+        format.html { redirect_to questions_url, notice: 'Question was successfully created.' }
+        format.json { render :index, status: :created, location: @question }
       else
         format.html { render :new }
         format.json { render json: @question.errors, status: :unprocessable_entity }
@@ -46,8 +46,8 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-        format.json { render :show, status: :ok, location: @question }
+        format.html { redirect_to questions_url, notice: 'Question was successfully updated.' }
+        format.json { render :index, status: :ok, location: @question }
       else
         format.html { render :edit }
         format.json { render json: @question.errors, status: :unprocessable_entity }

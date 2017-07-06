@@ -1,7 +1,12 @@
-div style="width: 400px; margin: 0 auto;"
-  h1 Editing question
+doctype html
+html
+  body
+    div style="width: 400px; margin: 0 auto;"
+      h1 Editing question
 
-  == render 'form'
+      = render 'form', question: @question
 
-  = link_to 'Back', questions_path
+      div style="text-align: center"
+        = button_to 'Delete question', @question, method: :delete, class: "btn btn-default", data: { confirm: 'Are you sure?' }
 
+      = link_to 'Back', questions_path

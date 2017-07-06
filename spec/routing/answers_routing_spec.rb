@@ -4,19 +4,19 @@ RSpec.describe AnswersController, type: :routing do
   describe "routing" do
 
     it "routes to #index" do
-      expect(:get => "/answers").to route_to("answers#index")
+      expect(:get => "/answers").not_to be_routable
     end
 
     it "routes to #new" do
-      expect(:get => "/answers/new").to route_to("answers#new")
+      expect(:get => "/answers/new").not_to be_routable
     end
 
     it "routes to #show" do
-      expect(:get => "/answers/1").to route_to("answers#show", :id => "1")
+      expect(:get => "/answers/1").not_to be_routable
     end
 
     it "routes to #edit" do
-      expect(:get => "/answers/1/edit").to route_to("answers#edit", :id => "1")
+      expect(:get => "/answers/1/edit").not_to be_routable
     end
 
     it "routes to #create" do

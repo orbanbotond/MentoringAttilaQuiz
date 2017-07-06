@@ -1,22 +1,20 @@
-h1 Listing questions
+div style="width: 400px; margin: 0 auto;"
+  h1 Listing questions
 
-table
-  thead
-    tr
-      th Name
-      th Category
-      th
-      th
-      th
+  hr
 
-  tbody
-    - @questions.each do |question|
-      tr
-        td = question.name
-        td = link_to 'Show', question
-        td = link_to 'Edit', edit_question_path(question)
-        td = link_to 'Destroy', question, data: { confirm: 'Are you sure?' }, method: :delete
+  = form_tag(questions_path, :method => "get", id: "search-form") do 
+  = text_field_tag :search, params[:search]
+  = submit_tag "Search"
 
-br
 
-= link_to 'New Question', new_question_path
+  hr
+
+
+  - @questions.each do |question|
+    h5
+      = link_to question.name, edit_question_path(question)
+
+  hr
+
+  = link_to 'New Question', new_question_path

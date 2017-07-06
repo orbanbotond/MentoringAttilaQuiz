@@ -12,7 +12,7 @@ RSpec.describe QuestionsController, type: :routing do
     end
 
     it "routes to #show" do
-      expect(:get => "/questions/1").to route_to("questions#show", :id => "1")
+      expect(:get => "/questions/1").not_to be_routable
     end
 
     it "routes to #edit" do

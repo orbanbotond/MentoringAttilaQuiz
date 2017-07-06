@@ -12,12 +12,11 @@ html
 
       = f.fields_for :answers do |ff|
         = render 'answer_fields', f: ff
+      div  
+        = link_to_add_fields "Add Answer", f, :answers
 
       hr
 
-      /= link_to_add_fields "Add Answer", f, :answers
-
-      hr
-
-      = f.submit
+      div style="text-align: center"
+        = f.submit "Save question", label_col: "col-sm-3"
 

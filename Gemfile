@@ -50,6 +50,8 @@ group :development, :test do
   gem 'nested_form_fields'
   gem 'nested_form'
   gem 'nested_scaffold'
+
+  gem 'jquery-rails'
 end
 
 group :development do
