@@ -53,7 +53,6 @@ group :development, :test do
 
   gem 'jquery-rails'
 
-  gem 'selenium-webdriver'
   gem 'chromedriver-helper'
 end
 

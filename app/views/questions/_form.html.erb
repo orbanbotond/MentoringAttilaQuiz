@@ -1,9 +1,0 @@
-<%= form_for @question do |f| %>
-  <%= f.text_field :name %>
-  <hr>
-  <h4>Answers:</h4>
-  <%= f.fields_for :answers do |p| %>
-    <%= p.text_field :name %>
-  <% end %>
-  <hr>
-<% end %>
