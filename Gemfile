@@ -54,6 +54,8 @@ group :development, :test do
   gem 'jquery-rails'
 
   gem 'chromedriver-helper'
+
+  gem 'will_paginate', '~> 3.1.0'
 end
 
 group :development do
