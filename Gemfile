@@ -52,6 +52,9 @@ group :development, :test do
   gem 'nested_scaffold'
 
   gem 'jquery-rails'
+
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
 end
 
 group :development do
