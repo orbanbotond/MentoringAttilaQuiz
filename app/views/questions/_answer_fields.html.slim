@@ -5,6 +5,11 @@ html
       tr
         td style="width: 300px"
           = f.text_field :name
-        td style="width: 100px; text-align:center;"
-          h4
-            = f.check_box :correct
+          /= f.check_box :_destroy
+          /= f.hidden_field :_destroy
+        td style="width: 100px; text-align:right;"
+          h5
+            span class="custom-control-input"
+              = f.check_box :correct
+            = link_to_remove_fields "Delete answer", f
+      br
