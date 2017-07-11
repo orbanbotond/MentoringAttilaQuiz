@@ -4,16 +4,13 @@ div style="width: 400px; margin: 0 auto;"
   hr
 
   = form_tag(questions_path, :method => "get", id: "search-form") do 
-    = text_field_tag :search, params[:search], { :onkeypress => "questions_search()" }
+    = text_field_tag :search, params[:search], class: 'searchable-field', autocomplete: "off"
     = submit_tag "Search"
 
   hr
 
-  div id="questions_partial"
-    - @questions.each do |question|
-      h5
-        = link_to question.name, edit_question_path(question)
-    = will_paginate @products
+  div id="questions-container"
+    = render partial: 'list', locals: {questions: @questions }
 
   hr
 

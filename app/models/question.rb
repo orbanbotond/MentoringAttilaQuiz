@@ -4,14 +4,12 @@ class Question < ApplicationRecord
   accepts_nested_attributes_for :answers, :allow_destroy => true 
   validates :name, presence: true, length: { in: 10..80 }
 
-  validate :has_correct_answer
+  validate :has_correct_answer?
   validate :number_of_answers
 
-  def self.search(search)
-    where("name LIKE ?", "%#{search}%")
-  end
+  scope :search, -> (search) { where("name LIKE ?", "%#{search}%") }
 
-  def has_correct_answer
+  def has_correct_answer?
     @test = false
     answers.each do |answer|
       @test = @test || answer.correct

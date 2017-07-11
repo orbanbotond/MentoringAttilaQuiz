@@ -56,6 +56,11 @@ group :development, :test do
   gem 'chromedriver-helper'
 
   gem 'will_paginate', '~> 3.1.0'
+
+  gem 'filterrific'
+
+  gem 'pry-rails'
+  gem 'pry-nav'
 end
 
 group :development do

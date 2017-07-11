@@ -37,4 +37,25 @@ describe 'questions page' do
     expect(page).to have_content("Too many answers (max 5)")
   end
 
+  it 'delete correct answers and save' do
+    visit '/categories/new'
+    fill_in 'Name', :with => "New Category"
+    fill_in 'Description', :with => "Description of new Category"
+    click_button 'Save category'
+    visit '/questions/new'
+    fill_in 'question[name]', :with => "New Question Name"
+    find('#question_category_id').find(:xpath, 'option[2]').select_option
+    fill_in 'question[answers_attributes][0][name]', :with => "answer1"
+    fill_in 'question[answers_attributes][1][name]', :with => "answer2"
+    fill_in 'question[answers_attributes][2][name]', :with => "answer3"
+    check 'question[answers_attributes][0][correct]'
+    click_button('Save question')
+
+    click_link('New Question Name')
+    expect(page).to have_content("Delete answer")
+    first('table').click_link 'Delete answer'
+    click_button('Save question')
+    expect(page).to have_content("No correct answer")
+  end
+
 end

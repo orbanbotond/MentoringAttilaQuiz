@@ -1,7 +1,7 @@
 function remove_fields(link) {
+  $(link).closest('table').find(':checkbox').attr('checked', false);
   $(link).prev("input[type=hidden]").val("1");
   $(link).closest("table").hide();
-  alert("Attila");
 }
 
 function add_fields(link, association, content) {

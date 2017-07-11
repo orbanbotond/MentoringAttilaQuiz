@@ -64,6 +64,7 @@ GEM
     chromedriver-helper (1.1.0)
       archive-zip (~> 0.7.0)
       nokogiri (~> 1.6)
+    coderay (1.1.1)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -77,6 +78,7 @@ GEM
     erubi (1.6.1)
     execjs (2.7.0)
     ffi (1.9.18)
+    filterrific (2.1.2)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     i18n (0.8.4)
@@ -112,6 +114,14 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-nav (0.2.4)
+      pry (>= 0.9.10, < 0.11.0)
+    pry-rails (0.3.6)
+      pry (>= 0.10.4)
     public_suffix (2.0.5)
     puma (3.9.1)
     rack (2.0.3)
@@ -180,6 +190,7 @@ GEM
       actionpack (>= 3.1)
       railties (>= 3.1)
       slim (~> 3.0)
+    slop (3.6.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -227,12 +238,15 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   database_cleaner
+  filterrific
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
   nested_form
   nested_form_fields
   nested_scaffold
+  pry-nav
+  pry-rails
   puma (~> 3.7)
   rails (~> 5.1.1)
   rspec-rails (~> 3.5)
