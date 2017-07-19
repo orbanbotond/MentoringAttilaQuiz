@@ -61,6 +61,14 @@ group :development, :test do
 
   gem 'pry-rails'
   gem 'pry-nav'
+
+  gem 'elasticsearch', git: 'git://github.com/elasticsearch/elasticsearch-ruby.git' 
+  gem 'elasticsearch-dsl'
+  gem 'elasticsearch-model'
+  gem 'chewy'
+  gem 'factory_girl'
+
+  gem 'elasticsearch-extensions'
 end
 
 group :development do

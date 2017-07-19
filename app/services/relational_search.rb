@@ -1,6 +1,6 @@
 class RelationalSearch 
   def call
-    @questions = Question.search(@search_term).order("name ASC").paginate(:per_page => 2, :page => @page)
+    @questions = Question.search2(@search_term).order("name ASC").paginate(:per_page => 2, :page => @page)
   end
 
   def initialize (search_term, page)

@@ -2,12 +2,14 @@ class Question < ApplicationRecord
   belongs_to :category
   has_many :answers, :dependent => :destroy
   accepts_nested_attributes_for :answers, :allow_destroy => true 
-  validates :name, presence: true, length: { in: 10..80 }
+  
+  update_index('question#question') { self }
 
+  validates :name, presence: true, length: { in: 10..80 }
   validate :has_correct_answer?
   validate :number_of_answers
 
-  scope :search, -> (search) { where("name LIKE ?", "%#{search}%") }
+  scope :search2, -> (search) { where("name LIKE ?", "%#{search}%") }
 
   def has_correct_answer?
     @test = false
