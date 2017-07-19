@@ -1,4 +1,14 @@
-- @questions.each do |question|
-  h5
-    = link_to question.name, edit_question_path(question)
-= will_paginate @products
+- @question_indexes.each do |question_index|
+  
+  - if question_index._data["highlight"].present? && question_index._data["highlight"]["name"].present?
+    h5 
+      = link_to raw(question_index._data["highlight"]["name"][0]), edit_question_path(Question.find(question_index.id))
+  - else
+    h5
+      = link_to question_index.name, edit_question_path(Question.find(question_index.id))
+
+  - if question_index._data["highlight"].present? && question_index._data["highlight"]["answers.name"].present?
+    - question_index._data["highlight"]["answers.name"].each do |answer|
+      p 
+        = raw answer
+//= will_paginate @products

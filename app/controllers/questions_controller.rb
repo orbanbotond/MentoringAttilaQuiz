@@ -4,21 +4,24 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    QuestionIndex.delete
+    #QuestionIndex.delete
     #unless QuestionIndex.exists?
-      QuestionIndex.create
-      QuestionIndex.import
+    #  QuestionIndex.create
+    #  QuestionIndex.import
     #end
 
-    @questions = Question.all
+    @question_indexes = QuestionIndex.all
     if params[:search].present? 
       
-      @questions = RelationalSearch.new(params[:search], params[:page]).call
-      SearchElastic.new(params[:search], params[:page]).call
+      #@questions = RelationalSearch.new(params[:search], params[:page]).call
+      @question_indexes = SearchElastic.new(params[:search], params[:page]).call
 
     else
-      @questions = Question.all.order("name ASC").paginate(:per_page => 2, :page => params[:page])
+      #@question_indexes = Question.all.order("name ASC").paginate(:per_page => 2, :page => params[:page])
     end
+
+    puts "START"
+    puts @question_indexes
 
     respond_to :html, :js
   end

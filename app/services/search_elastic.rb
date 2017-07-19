@@ -15,7 +15,9 @@ class SearchElastic
             operator: "and"
           }
         }
-      })
+      }).highlight(
+      fields: { "name" => {}, "answers.name" => {} } 
+      )
 
     query.each do |f|
       p f.name
@@ -23,5 +25,6 @@ class SearchElastic
       puts "\n"
     end
 
+    return query
   end
 end
