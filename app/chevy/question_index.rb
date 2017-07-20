@@ -4,7 +4,7 @@ class QuestionIndex < Chewy::Index
     analyzer: {
       name_analyzer: {
         tokenizer: 'my_tokenizer',
-        filter: ['lowercase']
+        filter: ['lowercase', 'asciifolding']
       }
     },
     tokenizer: {

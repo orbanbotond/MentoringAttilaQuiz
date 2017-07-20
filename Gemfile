@@ -66,7 +66,7 @@ group :development, :test do
   gem 'elasticsearch-dsl'
   gem 'elasticsearch-model'
   gem 'chewy'
-  gem 'factory_girl'
+  gem 'factory_girl_rails'
 
   gem 'elasticsearch-extensions'
 end

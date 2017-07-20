@@ -9,7 +9,7 @@ describe 'questions page' do
 
   it 'minimum 1 correct answer /negative' do
     visit '/questions/new'
-    fill_in 'question[name]', :with => "New Qestion"
+    fill_in 'question[name]', :with => "New Qestion Name"
     fill_in 'question[answers_attributes][0][name]', :with => "answer1"
     fill_in 'question[answers_attributes][1][name]', :with => "answer2"
     fill_in 'question[answers_attributes][2][name]', :with => "answer3"
@@ -19,7 +19,7 @@ describe 'questions page' do
 
   it 'minimum 1 correct answer /positive' do
     visit '/questions/new'
-    fill_in 'question[name]', :with => "New Qestion"
+    fill_in 'question[name]', :with => "New Question Name"
     fill_in 'question[answers_attributes][0][name]', :with => "answer1"
     fill_in 'question[answers_attributes][1][name]', :with => "answer2"
     check 'question[answers_attributes][1][correct]'
@@ -56,6 +56,8 @@ describe 'questions page' do
     first('table').click_link 'Delete answer'
     click_button('Save question')
     expect(page).to have_content("No correct answer")
+    
+    expect {find_field('Name', with: 'answer1')}.to raise_error(Capybara::ElementNotFound)
   end
 
 end

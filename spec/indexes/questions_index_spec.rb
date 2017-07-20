@@ -7,22 +7,39 @@ def reindex
 end
 
 RSpec.describe QuestionIndex do
-
-=begin
   context 'search amongst comprehensive entities' do
-    let!(:question) { create :question }
-    let!(:answer) { create :answer }
+    let!(:question) { create :question, name: "First question" }
 
     before do
       reindex
     end
 
-  context 'compound terms' do
+    context 'compound terms' do
       context 'negative cases' do
         specify 'no documents' do
-          scope = SearchGlobally.new.call answer.text[0..1], user
-          expect(scope[:total_count]).to eq(1)
+          scope = SearchElastic.new("esr").call
+          expect(scope.size).to eq(0)
         end
-=end
+      end
+      context 'positive cases' do
+        specify 'find 1 question' do
+          scope = SearchElastic.new("est").call
+          expect(scope.size).to eq(1)
+        end
+        specify 'find 1 question with upper case term' do
+          scope = SearchElastic.new("EsT").call
+          expect(scope.size).to eq(1)
+        end
+        specify 'find 1 question with asciifolding' do
+          scope = SearchElastic.new("Ésŧ").call
+          expect(scope.size).to eq(1)
+        end
+        specify 'find 1 question (via answers found)' do
+          scope = SearchElastic.new("orr").call
+          expect(scope.size).to eq(1)
+        end
 
+      end
+    end
+  end
 end

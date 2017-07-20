@@ -1,8 +1,7 @@
 class SearchElastic
 
-  def initialize (search_term, page)
+  def initialize (search_term)
     @search_term = search_term
-    @page = page
   end
 
   def call
@@ -15,15 +14,9 @@ class SearchElastic
             operator: "and"
           }
         }
-      }).highlight(
+      }). highlight(
       fields: { "name" => {}, "answers.name" => {} } 
       )
-
-    query.each do |f|
-      p f.name
-      p f
-      puts "\n"
-    end
 
     return query
   end

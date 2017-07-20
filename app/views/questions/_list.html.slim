@@ -1,14 +1,19 @@
-- @question_indexes.each do |question_index|
-  
-  - if question_index._data["highlight"].present? && question_index._data["highlight"]["name"].present?
-    h5 
-      = link_to raw(question_index._data["highlight"]["name"][0]), edit_question_path(Question.find(question_index.id))
-  - else
-    h5
-      = link_to question_index.name, edit_question_path(Question.find(question_index.id))
+- if @question_indexes.size == 0
+  h5 No questions found
+- else
 
-  - if question_index._data["highlight"].present? && question_index._data["highlight"]["answers.name"].present?
-    - question_index._data["highlight"]["answers.name"].each do |answer|
-      p 
-        = raw answer
-//= will_paginate @products
+  - @question_indexes.each do |question_index|
+    
+    - if question_index._data["highlight"].present? && question_index._data["highlight"]["name"].present?
+      h5 
+        = link_to raw(question_index._data["highlight"]["name"][0]), edit_question_path(Question.find(question_index.id))
+    - else
+      h5
+        = link_to question_index.name, edit_question_path(Question.find(question_index.id))
+
+    - if question_index._data["highlight"].present? && question_index._data["highlight"]["answers.name"].present?
+      - question_index._data["highlight"]["answers.name"].each do |answer|
+        p style = "text-indent : 50px"
+          = raw answer
+
+  = will_paginate @question_indexes
