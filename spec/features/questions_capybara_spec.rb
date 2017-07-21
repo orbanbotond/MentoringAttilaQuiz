@@ -1,7 +1,16 @@
+require 'rails_helper'
+
 require 'spec_helper'
+
+def reindex
+      QuestionIndex.delete! rescue nil
+      QuestionIndex.create
+      QuestionIndex.import
+    end
 
 describe 'questions page' do
   it 'open new question page' do
+    reindex
     visit '/questions'
     click_link('New Question')
     expect(page).to have_text("New Question")
@@ -58,6 +67,39 @@ describe 'questions page' do
     expect(page).to have_content("No correct answer")
     
     expect {find_field('Name', with: 'answer1')}.to raise_error(Capybara::ElementNotFound)
+  end
+
+  context 'new context' do
+    reindex
+    let!(:question) { create :question, name: "First question" }
+
+    before do
+      reindex
+    end
+
+    specify 'should search after returning from unsubmited new question' do
+
+      visit '/questions'
+
+      expect(page).to have_content("First question")
+      
+      reindex
+      fill_in 'search', :with => 'est'
+      expect(page).to have_content("First question")
+
+      fill_in 'search', :with => 'esr'
+      expect(page).to have_content("No questions found")
+
+      click_link('New Question')
+      click_link('Back to questions')
+      expect(page).to have_content("Listing questions")
+
+      fill_in 'search', :with => 'est'
+      expect(page).to have_content("First question")
+
+      fill_in 'search', :with => 'esr'
+      expect(page).to have_content("No questions found")      
+    end
   end
 
 end

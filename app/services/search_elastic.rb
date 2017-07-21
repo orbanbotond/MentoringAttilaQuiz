@@ -15,7 +15,7 @@ class SearchElastic
           }
         }
       }). highlight(
-      fields: { "name" => {}, "answers.name" => {} } 
+        fields: { "name" => {}, "answers.name" => {} } 
       )
 
     return query

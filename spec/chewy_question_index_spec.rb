@@ -1,10 +1,10 @@
-# curl 'localhost:9200/question/_search?q=M1&pretty'
+# curl 'localhost:9200/question/_search?q=hany&pretty'
 
-# curl -XPOST 'localhost:9200/global_search/_search?pretty' -d '
+# curl -XPOST 'localhost:9200/question/_search?pretty' -d '
 # {
 #   "query": {
 #     "match": {
-#       "_all":    "M1"
+#       "_all":    "Hany kereke van egy autonak?"
 #     }
 #   }
 # }'
@@ -18,18 +18,37 @@
 
 # curl -XGET 'localhost:9200/_analyze?pretty' -H 'Content-Type: application/json' -d'
 # {
-#   "analyzer" : {"filter":{"meeteor_ngram":{"type":"nGram","min_gram":"2","max_gram":"15"}},"analyzer":{"meeteor":{"filter":["meeteor_ngram"],"tokenizer":"standard"}}},
+#   "analyzer" : {"tokenizer":{"my_tokenizer":{"type":"nGram","min_gram":"1","max_gram":"25"}},"analyzer":{"meeteor":{"filter":["meeteor_ngram"],"tokenizer":"standard"}}},
 #   "text" : "this is a test"
 # }
 # '
 
+curl -XGET 'localhost:9200/_analyze?pretty' -H 'Content-Type: application/json' -d'
+{ 
+    "analyzer" : {
+            "name_analyzer" : {
+              "filter" : [ "lowercase", "asciifolding" ],
+              "tokenizer" : {"my_tokenizer": {"token_chars" : [ "letter", "digit" ], "min_gram" : "1", "type" : "ngram", "max_gram" : "25"}}
+            }
+          },
+  "text" : "this is a test"
+}'
+
+curl -XGET 'localhost:9200/_analyze?pretty' -H 'Content-Type: application/json' -d'
+{
+  "analyzer" : "name_analyzer",
+  "text" : "this is a test"
+}
+'
+
+
 # Retrieve the index itself
 # curl -XGET 'http://localhost:9200/global_search/_settings?pretty'
 
-# curl -XPOST 'localhost:9200/test_global_search/_analyze?pretty' -H 'Content-Type: application/json' -d'
+# curl -XPOST 'localhost:9200/question/_analyze?pretty' -H 'Content-Type: application/json' -d'
 # {
-#   "analyzer": "meeteor_index_analyzer",
-#   "text": "document.doc"
+#   "analyzer": "name_analyzer",
+#   "text": "this is a text"
 # }
 # '
 
@@ -37,7 +56,7 @@
 # curl -XGET 'localhost:9200/question?pretty'
 
 # retieve mapping:
-# curl -XGET 'localhost:9200/global_search/_mapping?pretty'
+# curl -XGET 'localhost:9200/question/_mapping?pretty'
 
 # curl -XGET 'http://localhost:9200/global_search/document/20/_termvector?fields=s3_url'
 
