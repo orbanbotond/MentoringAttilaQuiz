@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe 'categories page' do
   it 'open new category page' do
-    visit '/categories'
+    visit '/admin/categories'
     click_link('New Category')
     expect(page).to have_text("Back to categories")
   end
 
   it 'create new category' do
-    visit '/categories/new'
+    visit '/admin/categories/new'
     fill_in 'Name', :with => "New Category"
     fill_in 'Description', :with => "Description of new Category"
     click_button 'Save category'
@@ -16,7 +16,7 @@ describe 'categories page' do
   end
 
   it 'try to create category without name' do
-    visit '/categories/new'
+    visit '/admin/categories/new'
     fill_in 'Name', :with => ""
     fill_in 'Description', :with => "Description of new Category"
     click_button 'Save category'
@@ -24,11 +24,11 @@ describe 'categories page' do
   end
 
   it 'edit existing category' do
-    visit '/categories/new'
+    visit '/admin/categories/new'
     fill_in 'Name', :with => "New Category Name"
     fill_in 'Description', :with => "Description of new Category"
     click_button 'Save category'
-    visit '/categories'
+    visit '/admin/categories'
     click_link('New Category Name')
     fill_in 'Name', :with => "Modified Category Name"
     click_button 'Save category'

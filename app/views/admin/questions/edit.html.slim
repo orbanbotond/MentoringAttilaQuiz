@@ -1,0 +1,12 @@
+doctype html
+html
+  body
+    div style="width: 400px; margin: 0 auto;"
+      h1 Editing question
+
+      = render 'form', question: @question
+
+      div style="text-align: center"
+        = button_to 'Delete question', [:admin, @question], method: :delete, class: "btn btn-default", data: { confirm: 'Are you sure?' }
+
+      = link_to 'Back', admin_questions_path

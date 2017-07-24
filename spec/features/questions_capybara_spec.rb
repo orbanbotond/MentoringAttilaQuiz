@@ -11,13 +11,13 @@ def reindex
 describe 'questions page' do
   it 'open new question page' do
     reindex
-    visit '/questions'
+    visit '/admin/questions'
     click_link('New Question')
     expect(page).to have_text("New Question")
   end
 
   it 'minimum 1 correct answer /negative' do
-    visit '/questions/new'
+    visit '/admin/questions/new'
     fill_in 'question[name]', :with => "New Qestion Name"
     fill_in 'question[answers_attributes][0][name]', :with => "answer1"
     fill_in 'question[answers_attributes][1][name]', :with => "answer2"
@@ -27,7 +27,7 @@ describe 'questions page' do
   end
 
   it 'minimum 1 correct answer /positive' do
-    visit '/questions/new'
+    visit '/admin/questions/new'
     fill_in 'question[name]', :with => "New Question Name"
     fill_in 'question[answers_attributes][0][name]', :with => "answer1"
     fill_in 'question[answers_attributes][1][name]', :with => "answer2"
@@ -38,7 +38,7 @@ describe 'questions page' do
   end
 
   it 'more than 5 answers' do
-    visit '/questions/new'
+    visit '/admin/questions/new'
     click_link 'Add Answer'
     click_link 'Add Answer'
     click_link 'Add Answer'
@@ -47,11 +47,11 @@ describe 'questions page' do
   end
 
   it 'delete correct answers and save' do
-    visit '/categories/new'
+    visit '/admin/categories/new'
     fill_in 'Name', :with => "New Category"
     fill_in 'Description', :with => "Description of new Category"
     click_button 'Save category'
-    visit '/questions/new'
+    visit '/admin/questions/new'
     fill_in 'question[name]', :with => "New Question Name"
     find('#question_category_id').find(:xpath, 'option[2]').select_option
     fill_in 'question[answers_attributes][0][name]', :with => "answer1"
@@ -79,7 +79,7 @@ describe 'questions page' do
 
     specify 'should search after returning from unsubmited new question' do
 
-      visit '/questions'
+      visit '/admin/questions'
 
       expect(page).to have_content("First question")
       

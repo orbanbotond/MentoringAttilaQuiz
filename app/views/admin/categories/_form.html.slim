@@ -1,8 +1,9 @@
 doctype html
 html
   hr
-  = bootstrap_form_for(category, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9") do |f|
+  = bootstrap_form_for([:admin, category], layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9") do |f|
     = f.text_field :name
     = f.text_area :description
     div style="text-align: center"
       = f.submit "Save category", label_col: "col-sm-3"
+//,

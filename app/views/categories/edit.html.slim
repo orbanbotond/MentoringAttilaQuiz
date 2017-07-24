@@ -1,9 +1,0 @@
-doctype html
-html
-  body
-    div style="width: 400px; margin: 0 auto;"
-      = link_to 'Back to categories', categories_path, {:class => 'h3', :style=>'color: 0;'}
-      = render 'form', category: @category
-      br
-      div style="text-align: center"
-        = button_to 'Delete category', @category, method: :delete, class: "btn btn-default", data: { confirm: 'Are you sure?' }

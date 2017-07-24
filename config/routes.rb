@@ -1,13 +1,16 @@
 Rails.application.routes.draw do
-  resources :tests do
-    post '/' => 'tests#check'
+
+  scope module: 'user' do
+    resources :tests do
+      post '/' => 'tests#check'
+    end
   end
 
-  resources :answers, only: [:create, :update, :destroy]
-
-  resources :questions, except: [:show] do
-  	resources :answers
+  namespace :admin do
+    resources :categories, except: [:show]
+    resources :answers, only: [:create, :update, :destroy]
+    resources :questions, except: [:show] do
+    	resources :answers
+    end
   end
-  
-  resources :categories, except: [:show]
 end

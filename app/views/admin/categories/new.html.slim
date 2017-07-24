@@ -1,5 +1,5 @@
 doctype html
 html
 	div style="width: 400px; margin: 0 auto;"
-		= link_to 'Back to categories', categories_path, {:class => 'h3', :style=>'color: 0;'}
+		= link_to 'Back to categories', admin_categories_path, {:class => 'h3', :style=>'color: 0;'}
 		= render 'form', category: @category
