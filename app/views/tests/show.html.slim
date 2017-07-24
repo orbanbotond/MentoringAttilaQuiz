@@ -1,0 +1,20 @@
+p#notice = notice
+
+div style="width: 400px; margin: 0 auto"
+  = bootstrap_form_tag(layout: :horizontal) do |f|
+    - @test.questions.each_with_index do |question, index|
+      h4
+        = (1+index).to_s+".   "
+        = f.label question.name
+      = f.form_group "question"+index.to_s
+        - question.answers.each_with_index do |answer, i|
+          div style="width: 200px; margin: 0 auto"
+            h5 style="text-indent: 10px"
+              = f.check_box "question"+index.to_s, label: answer.name
+    div style="margin-left: 100px"
+      = f.submit "Submit test"
+
+
+= link_to 'Edit', edit_test_path(@test)
+'  |
+= link_to 'Back', tests_path

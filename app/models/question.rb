@@ -1,6 +1,7 @@
 class Question < ApplicationRecord
   belongs_to :category
   has_many :answers, :dependent => :destroy
+  has_and_belongs_to_many :tests
   accepts_nested_attributes_for :answers, :allow_destroy => true 
   
   update_index('question#question') { self }

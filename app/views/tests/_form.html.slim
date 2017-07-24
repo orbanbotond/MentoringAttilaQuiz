@@ -1,0 +1,24 @@
+hr
+
+= bootstrap_form_for(@test, layout: :horizontal, label_col: "col-sm-5", control_col: "col-sm-3") do |f|
+
+  label class="control-label" Select categories:
+
+  - Category.all.each do |category|
+    p style="text-indent: 100px"
+      = check_box_tag "categories[]", category.id
+      = label_tag category.name
+
+  = f.number_field :number_of_questions, value: 10, in: 2..20
+
+  div style="text-align: center"
+    = f.submit "Start quiz", label_col: "col-sm-5"
+
+
+
+  - if @test.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@test.errors.count, "error")} prohibited this test from being saved:"
+      ul
+        - @test.errors.full_messages.each do |message|
+          li = message

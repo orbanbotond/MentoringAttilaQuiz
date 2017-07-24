@@ -1,0 +1,8 @@
+doctype html
+html
+  body
+    div style="width: 400px; margin: 0 auto"
+      h1 Generate new quiz
+      = render 'form', test: @test
+      h3
+        = link_to 'Back to test', tests_path
