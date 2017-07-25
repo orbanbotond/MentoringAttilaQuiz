@@ -1,19 +1,21 @@
-h1 Listing tests
+div style="width: 400px; margin: 0 auto"
+  h1 Listing tests
 
-table
-  thead
-    tr
-      th
-      th
-      th
+  hr
 
-  tbody
-    - @tests.each do |test|
+  table
+    thead
       tr
-        td = link_to 'Show', test
-        td = link_to 'Edit', edit_test_path(test)
-        td = link_to 'Destroy', test, data: { confirm: 'Are you sure?' }, method: :delete
+        th
+        th
+        th
 
-br
+    tbody
+      - @tests.each do |test|
+        tr
+          td = link_to 'Show', test
+          td = link_to 'Destroy', test, data: { confirm: 'Are you sure?' }, method: :delete
 
-= link_to 'New Test', new_test_path
+  hr
+
+  = link_to 'New Test', new_test_path

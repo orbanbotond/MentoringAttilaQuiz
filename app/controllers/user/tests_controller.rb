@@ -1,20 +1,36 @@
 class User::TestsController < ApplicationController
   before_action :set_test, only: [:show, :edit, :update, :destroy]
 
-  # POST /tests/1
-  def check
-    p params
-  end
-
   # GET /tests
   # GET /tests.json
   def index
+    session[:nr] = -1
+    session[:number_of_correct_answers] = 0
     @tests = Test.all
   end
 
   # GET /tests/1
   # GET /tests/1.json
   def show
+    @test = Test.find(params[:id])
+
+    @button_text = "Submit answer"
+    if @test.current_step(session[:nr]).eql?('question')
+
+      @previous_question = @test.questions[session[:nr] / 2]
+      session[:number_of_correct_answers] += check_answers(@previous_question.answers, params)
+      
+      @button_text = "Next question"
+    end
+
+    if session[:nr] < 2 * @test.questions.size
+      session[:nr] = session[:nr] + 1
+    end
+    @question = @test.questions[session[:nr] / 2]
+
+    if @test.current_step(session[:nr] + 1).eql?('evaluate')
+      @button_text = "Finish test"
+    end
   end
 
   # GET /tests/new
@@ -29,18 +45,13 @@ class User::TestsController < ApplicationController
   # POST /tests
   # POST /tests.json
   def create
-    puts test_params
-
-    p params["categories"]
-
-    rez = Question.where(category_id: params["categories"]).order("RANDOM()").limit(test_params["number_of_questions"].to_i)
-    p rez
-
     @test = Test.new(test_params)
-    @test.questions = rez 
+    @test.questions = Question.where(category_id: params["categories"]).order("RANDOM()").limit(test_params["number_of_questions"].to_i)
 
     respond_to do |format|
       if @test.save
+        session[:nr] = -1
+        session[:number_of_correct_answers] = 0 
         format.html { redirect_to @test, notice: 'Test was successfully created.' }
         format.json { render :show, status: :created, location: @test }
       else
@@ -83,5 +94,23 @@ class User::TestsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def test_params
       params.require(:test).permit(:number_of_questions)
+    end
+
+    def check_answers(answers, params)
+      correct = true
+      answers.each do |answer|
+        answer_boolean = false
+        if params["#{answer.id}"] == "1"
+          answer_boolean = true
+        end
+        if answer.correct ^ answer_boolean 
+          correct = false
+        end
+      end
+      if correct
+        1
+      else 
+        0
+      end
     end
 end

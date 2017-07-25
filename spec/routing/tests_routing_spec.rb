@@ -16,7 +16,7 @@ RSpec.describe User::TestsController, type: :routing do
     end
 
     it "routes to #edit" do
-      expect(:get => "/tests/1/edit").to route_to("user/tests#edit", :id => "1")
+      expect(:get => "/tests/1/edit").not_to be_routable
     end
 
     it "routes to #create" do

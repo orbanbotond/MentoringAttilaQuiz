@@ -4,6 +4,7 @@ class Admin::QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
+    p params
 
     if params[:search].present?
       

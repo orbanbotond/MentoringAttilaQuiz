@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
 
   scope module: 'user' do
-    resources :tests do
-      post '/' => 'tests#check'
-    end
+    resources :tests, except: [:edit]
+    post 'tests/:id' => 'tests#show'
   end
 
   namespace :admin do

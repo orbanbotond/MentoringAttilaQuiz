@@ -1,0 +1,7 @@
+= render 'result'
+
+h5
+  = f.label @question.name
+  - @question.answers.each do |answer|
+    div style="text-indent:30px"
+      = f.check_box answer.id, label: answer.name

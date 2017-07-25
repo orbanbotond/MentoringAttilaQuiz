@@ -1,0 +1,17 @@
+= render 'result'
+
+h5
+  = f.label @question.name
+  - @question.answers.each do |answer|
+    div style="text-indent:30px"
+      - if params["#{answer.id}"] == "1" 
+        = f.check_box answer.id, label: answer.name, checked: true, disabled: "disabled", inline: true
+
+        - if answer.correct
+          = f.label :correct, style: "color: green"
+        - else
+          = f.label "incorrect", style: "color: red"
+      - else
+        = f.check_box answer.id, :style => "background-color: red", label: answer.name, disabled: "disabled", inline: true
+        -if answer.correct
+          = f.label :correct, style: "color: green"
