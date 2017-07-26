@@ -1,7 +1,7 @@
 class Test < ApplicationRecord
-  has_and_belongs_to_many :questions
-  has_many :question_test_ids
-  accepts_nested_attributes_for :questions
+  has_many :questions_tests
+  has_many :questions, through: :questions_tests
+  accepts_nested_attributes_for :questions_tests
 
   attr_writer :current_step
 
@@ -15,7 +15,7 @@ class Test < ApplicationRecord
 
   def current_step(index)
     steps = []
-    questions.each do |variable|
+    questions_tests.each do |variable|
       steps << 'question'
       steps << 'show_correct'
     end
