@@ -28,3 +28,5 @@ Things you may want to cover:
 #-cyclomatic complexity
 #-magic numbers
 #-SRP(single responsability principle)
+#
+#Add rubocop into the code.
