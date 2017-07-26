@@ -11,11 +11,15 @@ div style="width: 400px; margin: 0 auto"
         th
 
     tbody
-      - @tests.each do |test|
-        tr
-          td = link_to 'Show', test
-          td = link_to 'Destroy', test, data: { confirm: 'Are you sure?' }, method: :delete
+      - if @tests.size > 0
+        - @tests.each do |test|
+          tr
+            td style="padding-right: 10px" = test.created_at.strftime("%Y-%m-%d %H:%M")
+            td style="padding-right: 10px" = link_to 'Show results', test
+            td style="padding-right: 10px" = link_to 'Destroy', test, data: { confirm: 'Are you sure?' }, method: :delete
+      - else
+        h5 No tests found
 
   hr
-
-  = link_to 'New Test', new_test_path
+  h3
+    = link_to 'New Test', new_test_path

@@ -7,19 +7,30 @@ class Test < ApplicationRecord
 
   #validate :has_chosen_category?
 
-  def has_chosen_category?
-    if params["categories"].size == 0
-      error.add(:number_of_questions, "No chosen categories")
+  validate :is_any_question?
+
+  def is_any_question?
+    if questions.size == 0
+      errors.add(:number_of_questions, "No questions")
     end
   end
 
-  def current_step(index)
-    steps = []
-    questions_tests.each do |variable|
-      steps << 'question'
-      steps << 'show_correct'
+  def has_chosen_category?
+    if params["categories"].size == 0
+      errors.add(:number_of_questions, "No chosen categories")
     end
-    steps << 'evaluate'
-    steps[index]
+  end
+
+  def create_steps(with_show_correct)
+    @@steps = []
+    questions_tests.each do |variable|
+      @@steps << 'question'
+      @@steps << 'show_correct' if with_show_correct
+    end
+    @@steps << 'evaluate'
+  end
+
+  def current_step(index)
+    @@steps[index]
   end
 end

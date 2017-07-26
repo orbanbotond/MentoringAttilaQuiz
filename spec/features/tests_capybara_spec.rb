@@ -22,6 +22,7 @@ describe 'tests' do
         expect(page).to have_content("Number of questions")
         expect(page).to have_content("Select categories")
 
+        
 
 
         find_button('Start quiz').click

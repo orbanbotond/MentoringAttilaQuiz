@@ -7,8 +7,6 @@ class Admin::QuestionsController < ApplicationController
     p params
 
     if params[:search].present?
-      
-      #@questions = RelationalSearch.new(params[:search], params[:page]).call
       @question_indexes = SearchElastic.new(params[:search]).call.paginate(:per_page => 2, :page => params[:page])
     else
       @question_indexes = QuestionIndex.all.paginate(:per_page => 2, :page => params[:page])

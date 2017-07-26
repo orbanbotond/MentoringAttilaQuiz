@@ -1,0 +1,21 @@
+p#notice = notice
+
+div style="width: 400px; margin: 0 auto"
+
+  = bootstrap_form_tag do |f|
+    = render "#{@test.current_step(session[:nr])}_step", :f => f
+    - if @test.current_step(session[:nr]) != 'evaluate'
+      div style="padding-left: 80px"
+        = f.submit @button_text
+
+  - if @test.current_step(session[:nr]) == "evaluate"
+    h5
+      = link_to 'Take another quiz', new_test_path
+    h5
+      = link_to 'Back to homepage', tests_path
+  - else
+    h5
+      = link_to 'Take another quiz', new_test_path, data: { confirm: 'Are you sure to leave the test?' }
+    h5
+      = link_to 'Back to homepage', tests_path, data: { confirm: 'Are you sure to leave the test?' }
+

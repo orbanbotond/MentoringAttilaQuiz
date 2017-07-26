@@ -1,14 +1,37 @@
-p#notice = notice
+div style="width: 400px; margin: 0 auto;"
+  h1 Test results
 
-div style="width: 400px; margin: 0 auto"
+  hr
 
-  = bootstrap_form_tag do |f|
-    = render "#{@test.current_step(session[:nr])}_step", :f => f
-    - if @test.current_step(session[:nr]) != 'evaluate'
-      = f.submit @button_text
+  = render 'result'
 
+  hr
+
+  = will_paginate @questions_tests
+  
+  - @questions_tests.each do |qt|
+    h5
+      = qt.question.name
+      br
+      br
+      - if qt.marked_answer.present?
+        - qt.question.answers.each_with_index do |answer, index|
+          div style="text-indent:30px"
+            = bootstrap_form_tag do |f|
+              - if qt.marked_answer[index] == "1" 
+                = f.check_box answer.id, label: answer.name, checked: true, disabled: "disabled", inline: true
+
+                - if answer.correct
+                  = f.label :correct, style: "color: green"
+                - else
+                  = f.label "incorrect", style: "color: red"
+              - else
+                = f.check_box answer.id, :style => "background-color: red", label: answer.name, disabled: "disabled", inline: true
+                -if answer.correct
+                  = f.label :correct, style: "color: green"
+      - else
+        h5 style='color: red' You haven't answered
+  
+  hr
   h4
-    - if @test.current_step(session[:nr]) == "evaluate"
-      = link_to 'Take another quiz', tests_path
-    - else
-      = link_to 'Take another quiz', tests_path, data: { confirm: 'Are you sure to leave the test?' }
+    = link_to 'Back to homepage', tests_path

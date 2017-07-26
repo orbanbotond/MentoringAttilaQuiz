@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   scope module: 'user' do
     resources :tests, except: [:edit]
     post 'tests/:id' => 'tests#show'
+    get 'tests/:id/answer_questions' => 'tests#answer_questions'
+    post 'tests/:id/answer_questions' => 'tests#answer_questions'
   end
 
   namespace :admin do

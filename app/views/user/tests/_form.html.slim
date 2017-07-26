@@ -11,6 +11,11 @@ hr
 
   = f.number_field :number_of_questions, value: 10, in: 2..20
 
+  hr
+
+  = check_box_tag "show_results"
+  = label_tag "Show results on every step?"
+
   div style="text-align: center"
     = f.submit "Start quiz", label_col: "col-sm-5"
 
