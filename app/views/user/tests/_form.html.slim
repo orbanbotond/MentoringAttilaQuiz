@@ -4,6 +4,7 @@ hr
 
   label class="control-label" Select categories:
 
+  -# TODO setup the neeeded collection in the controller please
   - Category.all.each do |category|
     p style="text-indent: 100px"
       = check_box_tag "categories[]", category.id

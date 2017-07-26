@@ -22,3 +22,9 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+#TODO check
+#-The law of demeter
+#-cyclomatic complexity
+#-magic numbers
+#-SRP(single responsability principle)

@@ -3,6 +3,7 @@ p#notice = notice
 div style="width: 400px; margin: 0 auto"
 
   = bootstrap_form_tag do |f|
+    -# hint extract this logic in to helpers
     = render "#{@test.current_step(session[:nr])}_step", :f => f
     - if @test.current_step(session[:nr]) != 'evaluate'
       div style="padding-left: 80px"

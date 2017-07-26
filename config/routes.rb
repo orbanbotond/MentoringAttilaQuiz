@@ -9,8 +9,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :categories, except: [:show]
+    #TODO hint please consider nesting the answers to the question
     resources :answers, only: [:create, :update, :destroy]
     resources :questions, except: [:show] do
+      #TODO replace tabs with spaces
     	resources :answers
     end
   end

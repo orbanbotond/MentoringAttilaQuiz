@@ -18,12 +18,17 @@ class User::TestsController < ApplicationController
     @number_of_correct_answers = 0
 
     @questions_tests.each do |qt|
+      #TODO please rewrite to be intuitive and to reflect your intention
       correct = 1
+      #TODO avoid variable names without meanings 'qt'
       qt.question.answers.each_with_index do |answer, index|
         answer_boolean = false
+        #TODO "1" is what???
+        #please get rid of the magic strigs
         if qt.marked_answer.present? && qt.marked_answer[index] == "1"
           answer_boolean = true
         end
+        #TODO this is criptic
         if answer.correct ^ answer_boolean
           correct = 0
         end
@@ -42,6 +47,7 @@ class User::TestsController < ApplicationController
     end
 
     @button_text = "Submit answer"
+    #TODO get rid of the high cyclomatic comlplexity.
     if @test.current_step(session[:nr]).eql?('show_correct')
       set_number_of_correct_answers(@test, params, 1)
       @button_text = "Next question"
@@ -82,6 +88,10 @@ class User::TestsController < ApplicationController
     @test = Test.new(test_params)
     @test.questions = Question.where(category_id: params["categories"]).order("RANDOM()").limit(test_params["number_of_questions"].to_i)
 
+    #TODO
+    #by asking questions.size you disobey the law of Demeter.
+    #hint please make a method in test which delegates to question
+    #     so it is nice to have good encapsulation
     if @test.questions.size < test_params["number_of_questions"].to_i
       @test.number_of_questions = @test.questions.size
       notice = "There wasn't enough questions in the database! Number of questions: #{@test.number_of_questions}"
@@ -139,6 +149,9 @@ class User::TestsController < ApplicationController
       params.require(:test).permit(:number_of_questions)
     end
 
+    #TODO
+    # uggly....
+    # please rewrite it to be intuitive
     def check_answers(answers, params, questions_test)
       correct = true
       questions_test[0].marked_answer = ""

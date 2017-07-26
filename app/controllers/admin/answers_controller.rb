@@ -1,6 +1,8 @@
 class Admin::AnswersController < ApplicationController
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
 
+#TODO hint you can get rid of the jsons
+
   # POST /answers
   # POST /answers.json
   def create
