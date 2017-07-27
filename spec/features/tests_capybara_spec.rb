@@ -3,16 +3,16 @@ require 'spec_helper'
 describe 'tests' do
   context 'generating new test' do
     context 'negative' do
-      it 'submit uncompleted form' do
-        visit '/tests/new'
+      # it 'submit uncompleted form' do
+      #   visit '/tests/new'
         
-        expect(page).to have_content("Number of questions")
-        expect(page).to have_content("Select categories")
+      #   expect(page).to have_content("Number of questions")
+      #   expect(page).to have_content("Select categories")
 
-        find_button('Start quiz').click
+      #   find_button('Start quiz').click
 
-        expect(page).to have_content("No chosen categories")
-      end
+      #   expect(page).to have_content("No chosen categories")
+      # end
     end
 
     context 'positive' do

@@ -2,15 +2,13 @@ class User::TestsController < ApplicationController
   before_action :set_test, only: [:show, :edit, :update, :destroy]
 
   # GET /tests
-  # GET /tests.json
   def index
-    session[:nr] = -1
+    session[:step_number] = -1
     session[:number_of_correct_answers] = 0
     @tests = Test.all
   end
 
   # GET /tests/1
-  # GET /tests/1.json
   def show
     @questions_tests = @test.questions_tests
 
@@ -42,29 +40,29 @@ class User::TestsController < ApplicationController
   def answer_questions
     @test = Test.find(params[:id])
 
-    unless session[:nr] != -1 && @test.current_step(session[:nr]).eql?('evaluate')
-      session[:nr] = session[:nr] + 1
+    unless session[:step_number] != -1 && @test.current_step(session[:step_number]).eql?('evaluate')
+      session[:step_number] = session[:step_number] + 1
     end
 
     @button_text = "Submit answer"
     #TODO get rid of the high cyclomatic comlplexity.
-    if @test.current_step(session[:nr]).eql?('show_correct')
+    if @test.current_step(session[:step_number]).eql?('show_correct')
       set_number_of_correct_answers(@test, params, 1)
       @button_text = "Next question"
 
-    elsif @test.current_step(session[:nr]).eql?('question')
+    elsif @test.current_step(session[:step_number]).eql?('question')
       session[:number_of_answers] += 1
-      if @test.current_step(session[:nr] - 1).eql?('question')
+      if @test.current_step(session[:step_number] - 1).eql?('question')
         set_number_of_correct_answers(@test, params, 2)
       end
 
-    elsif @test.current_step(session[:nr] - 1).eql?('question')
+    elsif @test.current_step(session[:step_number] - 1).eql?('question')
       set_number_of_correct_answers(@test, params, 1)
     end
 
     @question = @test.questions[session[:number_of_answers]-1]
 
-    if @test.current_step(session[:nr] + 1).eql?('evaluate')
+    if @test.current_step(session[:step_number] + 1).eql?('evaluate')
       @button_text = "Finish test"
     end
 
@@ -75,7 +73,7 @@ class User::TestsController < ApplicationController
   # GET /tests/new
   def new
     @test = Test.new
-    p params
+    @categories = Category.all
   end
 
   # GET /tests/1/edit
@@ -83,7 +81,6 @@ class User::TestsController < ApplicationController
   end
 
   # POST /tests
-  # POST /tests.json
   def create
     @test = Test.new(test_params)
     @test.questions = Question.where(category_id: params["categories"]).order("RANDOM()").limit(test_params["number_of_questions"].to_i)
@@ -101,7 +98,7 @@ class User::TestsController < ApplicationController
 
     respond_to do |format|
       if @test.save
-        session[:nr] = -1
+        session[:step_number] = -1
         session[:number_of_answers] = 0
         session[:number_of_correct_answers] = 0 
         @test.create_steps(params[:show_results])
@@ -115,7 +112,6 @@ class User::TestsController < ApplicationController
   end
 
   # PATCH/PUT /tests/1
-  # PATCH/PUT /tests/1.json
   def update
     respond_to do |format|
       if @test.update(test_params)
@@ -129,7 +125,6 @@ class User::TestsController < ApplicationController
   end
 
   # DELETE /tests/1
-  # DELETE /tests/1.json
   def destroy
     @test.destroy
     respond_to do |format|

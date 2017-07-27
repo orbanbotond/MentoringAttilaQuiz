@@ -6,13 +6,11 @@
     
     - if question_index._data["highlight"].present? && question_index._data["highlight"]["name"].present?
       h5 
-        //= link_to raw(question_index._data["highlight"]["name"][0]), edit_question_path(Question.find(question_index.id))
         = link_to raw(question_index._data["highlight"]["name"][0]), edit_admin_question_path(Question.find_by(name: question_index.name))
 
         - puts question_index._data["highlight"]["name"][0]
     - else
       h5
-        //= link_to question_index.name, edit_question_path(Question.find(question_index.id))
         = link_to question_index.name, edit_admin_question_path(Question.find_by(name: question_index.name))
 
     - if question_index._data["highlight"].present? && question_index._data["highlight"]["answers.name"].present?

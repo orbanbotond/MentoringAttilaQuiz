@@ -5,34 +5,12 @@ class Test < ApplicationRecord
 
   attr_writer :current_step
 
-  #validate :has_chosen_category?
-
-  validate :is_any_question?
-
-  #TODO predicate method can't have side effect
-  #hint rename to something meaningfull
-  #please make it private
-  def is_any_question?
-    if questions.size == 0
-      errors.add(:number_of_questions, "No questions")
-    end
-  end
-
-  #TODO sounds like a predicate method with a side effect.
-  #please make it private
-  #please rename
-  def has_chosen_category?
-    if params["categories"].size == 0
-      errors.add(:number_of_questions, "No chosen categories")
-    end
-  end
-
-  # TODO rename with_show_correct to something meaningfull
-  def create_steps(with_show_correct)
+  #[OK] TODO rename with_show_correct to something meaningfull
+  def create_steps(show_correct_answers_option)
     @@steps = []
     questions_tests.each do |variable|
       @@steps << 'question'
-      @@steps << 'show_correct' if with_show_correct
+      @@steps << 'show_correct' if show_correct_answers_option
     end
     @@steps << 'evaluate'
   end
@@ -40,4 +18,9 @@ class Test < ApplicationRecord
   def current_step(index)
     @@steps[index]
   end
+
+  private
+    #TODO predicate method can't have side effect
+    #hint rename to something meaningfull
+    #please make it private
 end
