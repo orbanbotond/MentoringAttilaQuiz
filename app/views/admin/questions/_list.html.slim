@@ -1,7 +1,6 @@
 - if @question_indexes.size == 0
   h5 No questions found
 - else
-
   - @question_indexes.each do |question_index|
     
     - if question_index._data["highlight"].present? && question_index._data["highlight"]["name"].present?
