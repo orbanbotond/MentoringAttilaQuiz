@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170726075526) do
+ActiveRecord::Schema.define(version: 20170727154716) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "answers", force: :cascade do |t|
     t.string "name"
@@ -40,6 +43,7 @@ ActiveRecord::Schema.define(version: 20170726075526) do
     t.integer "question_id"
     t.integer "test_id"
     t.string "marked_answer"
+    t.integer "answer_ids", default: [], array: true
     t.index ["question_id"], name: "index_questions_tests_on_question_id"
     t.index ["test_id"], name: "index_questions_tests_on_test_id"
   end

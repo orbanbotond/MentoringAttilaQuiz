@@ -15,3 +15,9 @@ h5
         = f.check_box answer.id, :style => "background-color: red", label: answer.name, disabled: "disabled", inline: true
         -if answer.correct
           = f.label :correct, style: "color: green"
+
+  / = f.label @question.name
+  / - @question.answers_each do |answer|
+  /   div style="text-indent:30px"
+  /     = add_checkbox(f, @question.questions_test, answer)
+  /     = add_label(f, @question.questions_test, answer)

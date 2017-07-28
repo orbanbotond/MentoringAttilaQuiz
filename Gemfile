@@ -11,7 +11,7 @@ gem 'rails', '~> 5.1.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
-gem 'postgresql'
+gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
@@ -73,6 +73,8 @@ group :development, :test do
   gem 'elasticsearch-extensions'
 
   gem 'wicked'
+
+  gem 'rubocop', '~> 0.49.1', require: false
 end
 
 group :development do

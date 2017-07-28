@@ -9,28 +9,16 @@ div style="width: 400px; margin: 0 auto;"
 
   = will_paginate @questions_tests
   
-  - @questions_tests.each do |qt|
+  - @questions_tests.each do |questions_test|
     h5
-      = qt.question.name
+      = questions_test.question.name
       br
       br
-      - if qt.marked_answer.present?
-        - qt.question.answers.each_with_index do |answer, index|
+      = bootstrap_form_tag do |f|
+        - questions_test.question_answers_each do |answer|
           div style="text-indent:30px"
-            = bootstrap_form_tag do |f|
-              - if qt.marked_answer[index] == "1" 
-                = f.check_box answer.id, label: answer.name, checked: true, disabled: "disabled", inline: true
-
-                - if answer.correct
-                  = f.label :correct, style: "color: green"
-                - else
-                  = f.label "incorrect", style: "color: red"
-              - else
-                = f.check_box answer.id, :style => "background-color: red", label: answer.name, disabled: "disabled", inline: true
-                -if answer.correct
-                  = f.label :correct, style: "color: green"
-      - else
-        h5 style='color: red' You haven't answered
+            = add_checkbox(f, questions_test, answer)
+            = add_label(f, questions_test, answer)
   
   hr
   h4

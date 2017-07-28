@@ -4,11 +4,11 @@ div style="width: 400px; margin: 0 auto"
 
   = bootstrap_form_tag do |f|
     -#[OK] hint extract this logic in to helpers
-    = render_partials(f)
+    = render_partials(f, @test, session[:step_number])
     div style="padding-left: 80px"
-      = add_submit_button(f)
+      = add_submit_button(f, @test, session[:step_number], @button_text)
 
   h5
-    = link_to 'Take another quiz', new_test_path, data: confirm_message
+    = link_to 'Take another quiz', new_test_path, data: confirm_message(@test, session[:step_number])
   h5
-    = link_to 'Back to homepage', tests_path, data: confirm_message
+    = link_to 'Back to homepage', tests_path, data: confirm_message(@test, session[:step_number])

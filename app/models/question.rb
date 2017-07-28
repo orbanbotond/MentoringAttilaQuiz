@@ -6,6 +6,8 @@ class Question < ApplicationRecord
   has_many :questions_tests
   has_many :tests, through: :questions_tests
   accepts_nested_attributes_for :questions_tests
+
+  delegate :each, :to => :answers, :prefix => true
   
   update_index('question#question') { self }
 
