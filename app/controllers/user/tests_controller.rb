@@ -3,9 +3,6 @@ class User::TestsController < ApplicationController
 
   # GET /tests
   def index
-    # session[:step_number] = -1
-    # session[:number_of_answers] = 0
-    # session[:number_of_correct_answers] = 0
     @tests = Test.all
   end
 
@@ -18,31 +15,23 @@ class User::TestsController < ApplicationController
 
   def answer_questions
     @test = Test.find(params[:id])
+    increase_step_number
 
-    unless session[:step_number] != -1 && @test.current_step(session[:step_number]).eql?('evaluate')
-      session[:step_number] = session[:step_number] + 1
-    end
-
-    @button_text = "Submit answer"
-    #TODO get rid of the high cyclomatic comlplexity.
-    if @test.current_step(session[:step_number]).eql?('show_correct')
-      set_number_of_correct_answers(@test, params, 1)
-      @button_text = "Next question"
-
-    elsif @test.current_step(session[:step_number]).eql?('question')
-      session[:number_of_answers] += 1
-      if @test.current_step(session[:step_number] - 1).eql?('question')
-        set_number_of_correct_answers(@test, params, 2)
+    unless @test.is_current_step?('evaluate', session[:step_number]) and @test.is_previous_step?('show_correct', session[:step_number])
+      @previous_question = unless @test.is_previous_step?('question', session[:step_number])
+        @test.questions[session[:number_of_answers] - 0]
+      else 
+        @test.questions[session[:number_of_answers] - 1]
       end
 
-    elsif @test.current_step(session[:step_number] - 1).eql?('question')
-      set_number_of_correct_answers(@test, params, 1)
-    end
+      @questions_test = @test.find_questions_test_by_question(@previous_question)
+      save_marked_answers(@questions_test, params)
 
-    @question = @test.questions_sort[session[:number_of_answers]-1]
+      session[:number_of_correct_answers] += 1 if @questions_test.answered_correct?
 
-    if @test.current_step(session[:step_number] + 1).eql?('evaluate')
-      @button_text = "Finish test"
+      @question = @test.questions[session[:number_of_answers]]
+
+      session[:number_of_answers] += 1 if @test.is_current_step?('question', session[:step_number])
     end
 
     @number_of_answers = session[:number_of_answers]
@@ -64,10 +53,6 @@ class User::TestsController < ApplicationController
     @test = Test.new(test_params)
     @test.questions = Question.where(category_id: params["categories"]).order("RANDOM()").limit(test_params["number_of_questions"].to_i)
 
-    #[OK]TODO
-    #by asking questions.size you disobey the law of Demeter.
-    #hint please make a method in test which delegates to question
-    #     so it is nice to have good encapsulation
     if @test.questions_size < test_params["number_of_questions"].to_i
       @test.number_of_questions = @test.questions_size
       notice = "There wasn't enough questions in the database! Number of questions: #{@test.number_of_questions}"
@@ -112,7 +97,6 @@ class User::TestsController < ApplicationController
       params.require(:test).permit(:number_of_questions)
     end
 
-    #[OK]
     def save_marked_answers(questions_test, params)
       questions_test.question_answers_each do |answer|
         questions_test.answer_ids << answer.id if params["#{answer.id}"] == "1"
@@ -120,11 +104,9 @@ class User::TestsController < ApplicationController
       questions_test.save
     end
 
-    def set_number_of_correct_answers(test, params, prev_nr)
-      previous_question = test.questions_sort[session[:number_of_answers]-prev_nr]
-      questions_test = test.questions_tests.where(:question_id => previous_question.id).first
-
-      save_marked_answers(questions_test, params)
-      session[:number_of_correct_answers] += 1 if questions_test.answered_correct?
+    def increase_step_number
+      unless session[:step_number] != -1 && @test.current_step(session[:step_number]).eql?('evaluate')
+        session[:step_number] = session[:step_number] + 1
+      end
     end
 end

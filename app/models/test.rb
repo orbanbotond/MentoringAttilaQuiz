@@ -22,10 +22,22 @@ class Test < ApplicationRecord
     @@steps[index]
   end
 
+  def is_current_step?(step_name, index)
+    @@steps[index].eql? step_name
+  end
+
+  def is_previous_step?(step_name, index)
+    @@steps[index - 1].eql? step_name
+  end
+
   def number_of_correct_answers
     questions_tests.select { |questions_test|
       questions_test.answered_correct?
     }.size
+  end
+
+  def find_questions_test_by_question(question)
+    questions_tests.where(:question_id => question.id).first
   end
 
   private

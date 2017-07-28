@@ -5,7 +5,7 @@ class QuestionsTest < ApplicationRecord
   accepts_nested_attributes_for :test
   accepts_nested_attributes_for :question
 
-  delegate :answers, :to => :question, :prefix => true
+  delegate :answers, :name, :to => :question, :prefix => true
   delegate :each, :find, :to => :question_answers, :prefix => true
 
   def answered_correct?

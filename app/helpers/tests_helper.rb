@@ -6,8 +6,10 @@ module TestsHelper
     render "#{test.current_step(step_number)}_step", :f => form
   end
 
-  def add_submit_button(form, test, step_number, button_text)
+  def add_submit_button(form, test, step_number)
     if test.current_step(step_number) != 'evaluate'
+      button_text = @test.is_current_step?('show_correct', session[:step_number]) ? "Next question" : "Submit answer"
+      button_text = "Finish test" if @test.is_current_step?('evaluate', session[:step_number] + 1)
       form.submit button_text
     end
   end
