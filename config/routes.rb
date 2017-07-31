@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :users
   scope module: 'user' do
     resources :tests, except: [:edit]
     post 'tests/:id' => 'tests#show'
