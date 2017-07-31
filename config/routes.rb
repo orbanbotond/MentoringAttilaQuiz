@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :users
+  devise_for :members
   scope module: 'user' do
     resources :tests, except: [:edit]
     post 'tests/:id' => 'tests#show'
@@ -17,4 +17,6 @@ Rails.application.routes.draw do
     	resources :answers
     end
   end
+
+  root to: "user/tests#index"
 end
