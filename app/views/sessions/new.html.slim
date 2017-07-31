@@ -1,0 +1,12 @@
+div style="width: 400px; margin: 0 auto"
+  h3 Login
+  hr
+  = bootstrap_form_tag(layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-7") do |f|
+    = f.text_field :username, value: set_username_default(params[:username])
+    = f.password_field :password
+    div style="text-align: center"
+      h5 style="color: red;"
+        = set_error_message(params[:username])
+    hr
+    div style="text-align: center"
+      = f.submit "Log in", label_col: "col-sm-3"

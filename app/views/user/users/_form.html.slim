@@ -1,0 +1,10 @@
+= bootstrap_form_for(@user, layout: :horizontal, label_col: "col-sm-5", control_col: "col-sm-7") do |f|
+  = f.text_field :first_name
+  = f.text_field :last_name
+  = f.text_field :username, readonly: f.object.persisted?
+  = f.email_field :email, readonly: f.object.persisted?
+  = f.password_field :password
+  = f.password_field :password_confirmation
+
+  div style="text-align: center"
+    = f.submit 'Submit', label_col: "col-sm-3"

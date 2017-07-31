@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :users
+  get "log_in" => "sessions#new", :as => "log_in"
+  post "log_in" => "sessions#create"
+  resources :sessions
+
   scope module: 'user' do
+    resources :users
+
     resources :tests, except: [:edit]
     post 'tests/:id' => 'tests#show'
     get 'tests/:id/answer_questions' => 'tests#answer_questions'
