@@ -1,17 +1,19 @@
 div style="width: 400px; margin: 0 auto;"
   h2 Sign up
 
-  = bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-7") do |f|
+  - Member.delete_all
+  = bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-8") do |f|
     = devise_error_messages!
 
+    = f.text_field :first_name
+    = f.text_field :last_name
     = f.email_field :email, autofocus: true
-
 
     = f.password_field :password, autocomplete: "off"
     - if @minimum_password_length
-      div style="text-indent: 150px"
-        = "(#{@minimum_password_length} characters minimum)"
-
+      div style="text-indent: 100px"
+        = "* #{@minimum_password_length} characters minimum"
+    br
     = f.password_field :password_confirmation, autocomplete: "off"
 
     div style="text-align: center"

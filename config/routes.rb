@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
 
-  devise_for :members
+  devise_for :members, controllers: {
+    confirmations: 'member/confirmations',
+    #omniauth_callbacks: 'member/omniauth_callbacks',
+    passwords: 'member/passwords',
+    registrations: 'member/registrations',
+    sessions: 'member/sessions',
+    unlocks: 'member/unlocks'
+  }
+
+
   scope module: 'user' do
     resources :tests, except: [:edit]
     post 'tests/:id' => 'tests#show'
@@ -13,8 +22,7 @@ Rails.application.routes.draw do
     #TODO hint please consider nesting the answers to the question
     resources :answers, only: [:create, :update, :destroy]
     resources :questions, except: [:show] do
-      #TODO replace tabs with spaces
-    	resources :answers
+      resources :answers
     end
   end
 

@@ -1,0 +1,26 @@
+div style="width: 400px; margin: 0 auto;"
+  h2 Log in
+  hr
+  = bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name), layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-8") do |f|
+    = devise_error_messages!
+
+    - flash.each do |name, msg|
+      -if msg.class == Array
+        -msg.each do |message|
+          = content_tag :div, message, :id => "flash_#{name}"
+      -else
+        = content_tag :div, msg, :id => "flash_#{name}"
+    br
+    
+    = f.email_field :email, autofocus: true
+
+    = f.password_field :password, autocomplete: "off"
+
+    - if devise_mapping.rememberable?
+        div style="text-indent: 70px"
+          = f.check_box :remember_me
+
+    div style="text-align: center"
+      = f.submit "Log in"
+
+  = render "devise/shared/links"

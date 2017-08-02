@@ -1,0 +1,13 @@
+div style="width: 400px; margin: 0 auto;"
+  h2 Confirmation instructions
+  hr
+
+  = bootstrap_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-8") do |f|
+    = devise_error_messages!
+
+    = f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+
+    div style="text-align: center"
+      = f.submit "Resend confirmation instructions"
+
+  = render "devise/shared/links"
