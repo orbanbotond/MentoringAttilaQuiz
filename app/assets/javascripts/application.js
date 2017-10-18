@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap
 //= require nested_form_fields
 //= require jquery_nested_form
 //= require rails-ujs

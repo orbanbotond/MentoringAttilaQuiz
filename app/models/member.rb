@@ -6,7 +6,7 @@ class Member < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
 
-  has_many :tests
+  has_many :tests, :dependent => :destroy
 
   after_create :assign_default_role
 

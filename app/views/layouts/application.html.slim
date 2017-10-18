@@ -16,14 +16,21 @@ html
             = navbar_item 'New test', '/tests/new'
             = navbar_item 'Completed tests', '/tests'
             - if current_member.has_role? :admin
-              = navbar_item 'Questions', '/admin/questions'
-              = navbar_item 'Categories', '/admin/categories'
+
+              = navbar_dropdown 'Questions' do
+                = navbar_item 'Question list', '/admin/questions'
+                = navbar_item 'New question', '/admin/questions/new'
+
+              = navbar_dropdown 'Categories' do
+                = navbar_item 'Category list', '/admin/categories'
+                = navbar_item 'New categories', '/admin/categories/new'
 
         = navbar_group align:'right' do
           - if member_signed_in?
-            = navbar_text "Logged in as #{current_member.email}"
-            = navbar_item 'Edit profile', edit_member_registration_path
-            = navbar_item 'Logout', destroy_member_session_path, method: :delete
+            = navbar_dropdown "Logged in as #{current_member.first_name} #{current_member.last_name}" do
+              = navbar_item 'Edit profile', edit_member_registration_path
+              = navbar_item 'Logout', destroy_member_session_path, method: :delete
+
 
     div style="position:relative; margin-top:60px"
       p class="notice" style="color:green" = notice

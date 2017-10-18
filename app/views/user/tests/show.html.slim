@@ -11,14 +11,15 @@ div style="width: 400px; margin: 0 auto;"
   
   - @questions_tests.each do |questions_test|
     h5
-      = questions_test.question_name
-      br
-      br
-      = bootstrap_form_tag do |f|
-        - questions_test.question_answers_each do |answer|
-          div style="text-indent:30px"
-            = add_checkbox(f, questions_test, answer)
-            = add_label(f, questions_test, answer)
+      - unless questions_test.nil?
+        = questions_test.question_name
+        br
+        br
+        = bootstrap_form_tag do |f|
+          - questions_test.question_answers_each do |answer|
+            div style="text-indent:30px"
+              = add_checkbox(f, questions_test, answer)
+              = add_label(f, questions_test, answer)
   
   hr
   h4

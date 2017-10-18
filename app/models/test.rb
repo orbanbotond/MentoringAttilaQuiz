@@ -44,7 +44,5 @@ class Test < ApplicationRecord
   end
 
   private
-    #TODO predicate method can't have side effect
-    #hint rename to something meaningfull
-    #please make it private
+
 end

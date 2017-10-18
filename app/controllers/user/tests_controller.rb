@@ -10,7 +10,6 @@ class User::TestsController < ApplicationController
   def show
     @number_of_correct_answers = @test.number_of_correct_answers
     @number_of_answers = @test.questions_tests_size
-
     @questions_tests = @test.questions_tests_all.paginate(:page => params[:page], :per_page => 1)
   end
 

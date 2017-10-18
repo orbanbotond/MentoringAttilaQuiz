@@ -9,7 +9,3 @@ div style="width: 400px; margin: 0 auto;"
 
   div id="questions-container"
     = render partial: 'list', locals: {question_indexes: @question_indexes }
-
-  hr
-
-  = link_to 'New Question', new_admin_question_path
