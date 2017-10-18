@@ -4,7 +4,7 @@ class User::TestsController < ApplicationController
   
   # GET /tests
   def index
-    @tests = Test.all
+    @tests = Test.where("member_id = #{current_member.id}")
   end
 
   def show
@@ -53,7 +53,8 @@ class User::TestsController < ApplicationController
   def create
     @test = Test.new(test_params)
     @test.questions = Question.where(category_id: params["categories"]).order("RANDOM()").limit(test_params["number_of_questions"].to_i)
-
+    @test.member_id = current_member.id
+    
     if @test.questions_size < test_params["number_of_questions"].to_i
       @test.number_of_questions = @test.questions_size
       notice = "There wasn't enough questions in the database! Number of questions: #{@test.number_of_questions}"

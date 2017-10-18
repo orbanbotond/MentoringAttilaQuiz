@@ -6,6 +6,8 @@ class Member < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
 
+  has_many :tests
+
   after_create :assign_default_role
 
   def assign_default_role

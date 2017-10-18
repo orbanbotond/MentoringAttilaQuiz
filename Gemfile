@@ -27,6 +27,7 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'bootstrap-sass', '~> 3.3'
 gem 'bootstrap_form'
+gem 'rails_bootstrap_navbar'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

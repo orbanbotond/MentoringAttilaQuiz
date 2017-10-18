@@ -4,6 +4,7 @@ class Test < ApplicationRecord
   has_many :questions_tests
   has_many :questions, through: :questions_tests
   accepts_nested_attributes_for :questions_tests
+  belongs_to :member
 
   attr_writer :current_step
 
