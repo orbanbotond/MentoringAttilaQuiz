@@ -1,4 +1,6 @@
 class Answer < ApplicationRecord
+  resourcify
+
   belongs_to :question
   validates :name, presence: true, length: { in: 1..20 }
 

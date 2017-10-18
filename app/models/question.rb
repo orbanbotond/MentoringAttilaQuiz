@@ -1,7 +1,9 @@
 class Question < ApplicationRecord
+  resourcify
+
   belongs_to :category
   has_many :answers, :dependent => :destroy
-  accepts_nested_attributes_for :answers
+  accepts_nested_attributes_for :answers, :allow_destroy => true 
 
   has_many :questions_tests
   has_many :tests, through: :questions_tests

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802044958) do
+ActiveRecord::Schema.define(version: 20170831125744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,14 @@ ActiveRecord::Schema.define(version: 20170802044958) do
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
   end
 
+  create_table "members_roles", id: false, force: :cascade do |t|
+    t.bigint "member_id"
+    t.bigint "role_id"
+    t.index ["member_id", "role_id"], name: "index_members_roles_on_member_id_and_role_id"
+    t.index ["member_id"], name: "index_members_roles_on_member_id"
+    t.index ["role_id"], name: "index_members_roles_on_role_id"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.string "name"
     t.integer "category_id"
@@ -69,6 +77,17 @@ ActiveRecord::Schema.define(version: 20170802044958) do
     t.integer "answer_ids", default: [], array: true
     t.index ["question_id"], name: "index_questions_tests_on_question_id"
     t.index ["test_id"], name: "index_questions_tests_on_test_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["name"], name: "index_roles_on_name"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
   create_table "tests", force: :cascade do |t|

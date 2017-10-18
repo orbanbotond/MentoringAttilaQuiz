@@ -7,18 +7,25 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    /p class="notice" = notice
-    /p class="alert" = alert
 
-    p class="navbar-text pull-right">
-    - if member_signed_in?
-      p 
-        = "Logged in as #{current_member.email}"
-      = link_to 'Edit profile', edit_member_registration_path, :class => 'navbar-link'
-      = link_to "Logout", destroy_member_session_path, method: :delete, :class => 'navbar-link'
-    - else
-      = link_to "Sign up", new_member_registration_path, :class => 'navbar-link'  
-      = link_to "Login", new_member_session_path, :class => 'navbar-link'
-    end
+    div style="width: 100%; background-color: #ccc"
+      table class="table" style="width: 400px; margin-left:auto; margin-right:0;"
+        tr
+        - if member_signed_in?
+          td
+            = "Logged in as #{current_member.email}"
+          td
+            = link_to 'Edit profile', edit_member_registration_path, :class => 'navbar-link'
+          td
+            = link_to "Logout", destroy_member_session_path, method: :delete, :class => 'navbar-link'
+        / - else
+        /   td
+        /     = link_to "Sign up", new_member_registration_path, :class => 'navbar-link'  
+        /   td
+        /     = link_to "Login", new_member_session_path, :class => 'navbar-link'
+        / end
+
+    p class="notice" = notice
+    p class="alert" style="color:red" = alert
 
     = yield

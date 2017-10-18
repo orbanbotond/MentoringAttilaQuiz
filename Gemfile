@@ -12,6 +12,8 @@ gem 'rails', '~> 5.1.1'
 gem 'sqlite3'
 
 gem 'devise'
+gem 'rolify'
+gem 'cancancan'
 
 gem 'pg'
 # Use Puma as the app server

@@ -1,6 +1,7 @@
 class User::TestsController < ApplicationController
   before_action :set_test, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
+  
   # GET /tests
   def index
     @tests = Test.all

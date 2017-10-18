@@ -1,4 +1,6 @@
 class Test < ApplicationRecord
+  resourcify
+
   has_many :questions_tests
   has_many :questions, through: :questions_tests
   accepts_nested_attributes_for :questions_tests

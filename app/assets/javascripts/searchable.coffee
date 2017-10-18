@@ -1,4 +1,4 @@
-$ ->
+$(document).on 'turbolinks:load', ->
 
   $('body').on 'keyup', '.searchable-field', ->
     $.ajax

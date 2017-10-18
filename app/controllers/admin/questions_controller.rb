@@ -1,7 +1,9 @@
 class Admin::QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /questions
+  # GET /questions.json
   def index
     if params[:search].present?
       @question_indexes = SearchElastic.new(params[:search]).call.paginate(:per_page => 2, :page => params[:page])
@@ -24,28 +26,42 @@ class Admin::QuestionsController < ApplicationController
   end
 
   # POST /questions
+  # POST /questions.json
   def create
     @question = Question.new(question_params)
-    if @question.save
-      redirect_to admin_questions_url, notice: 'Question was successfully created.'
-    else
-      render :new
+    respond_to do |format|
+      if @question.save
+        format.html { redirect_to admin_questions_url, notice: 'Question was successfully created.' }
+        format.json { render :index, status: :created, location: @question }
+      else
+        format.html { render :new }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   # PATCH/PUT /questions/1
+  # PATCH/PUT /questions/1.json
   def update
-    if @question.save
-      redirect_to admin_questions_url, notice: 'Question was successfully created.'
-    else
-      render :new
+    respond_to do |format|
+      if @question.update(question_params)
+        format.html { redirect_to admin_questions_url, notice: 'Question was successfully updated.' }
+        format.json { render :index, status: :ok, location: @question }
+      else
+        format.html { render :edit }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   # DELETE /questions/1
+  # DELETE /questions/1.json
   def destroy
     @question.destroy
-    redirect_to admin_questions_url, notice: 'Question was successfully destroyed.'
+    respond_to do |format|
+      format.html { redirect_to admin_questions_url, notice: 'Question was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
