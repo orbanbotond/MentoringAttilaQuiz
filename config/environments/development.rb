@@ -38,9 +38,7 @@ Rails.application.configure do
     :authentication       => "plain"
     # :enable_starttls_auto => true # I don't have this, but it should work anyway 
   } 
-
-
-
+  
   config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.

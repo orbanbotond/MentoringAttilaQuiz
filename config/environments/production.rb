@@ -28,7 +28,7 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
@@ -88,4 +88,20 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  #[ATTILA] Email settings
+# Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { :host => 'mentoringattilaquiz.herokuapp.com' }
+  ActionMailer::Base.smtp_settings = {  
+    :address              => "smtp.gmail.com",  
+    :port                 => 587,  
+    :domain               => "gmail.com",  
+    :user_name            => "mentoringattilaquiz@gmail.com",  
+    :password             => "mentoring",  
+    :authentication       => "plain"
+    # :enable_starttls_auto => true # I don't have this, but it should work anyway 
+  } 
+  
+  config.action_mailer.perform_caching = false
 end

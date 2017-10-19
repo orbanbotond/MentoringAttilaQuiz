@@ -5,9 +5,21 @@ class Admin::QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
+    QuestionIndex.reset!
+    
+    # p '***'
+    # @question_indexes = QuestionIndex.all
+    # @question_indexes.each do |question_index|
+    #   p question_index
+    # end
+    # p '***'
+    # p Question.all
+    # p '***'
+
     if params[:search].present?
       @question_indexes = SearchElastic.new(params[:search]).call.paginate(:per_page => 2, :page => params[:page])
     else
+      #@question_indexes = []
       @question_indexes = QuestionIndex.all.paginate(:per_page => 2, :page => params[:page])
     end
     respond_to :html, :js
