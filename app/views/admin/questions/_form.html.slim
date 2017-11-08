@@ -10,10 +10,11 @@ html
       hr
       h4 Answers:
 
-      = f.fields_for :answers do |ff|
-        = render 'answer_fields', f: ff
-      div  
-        = link_to_add_fields "Add Answer", f, :answers
+      div id="answers"
+        = f.fields_for :answers do |ff|
+          = render 'answer_fields', f: ff
+        div  
+          = link_to_add_fields "Add Answer", f, :answers
 
       hr
 

@@ -10,7 +10,7 @@ class User::TestsController < ApplicationController
   def show
     @number_of_correct_answers = @test.number_of_correct_answers
     @number_of_answers = @test.questions_tests_size
-    @questions_tests = @test.questions_tests_all.paginate(:page => params[:page], :per_page => 1)
+    @questions_tests = @test.questions_tests_order(:local_id).paginate(:page => params[:page], :per_page => 1)
   end
 
   def answer_questions
@@ -18,18 +18,18 @@ class User::TestsController < ApplicationController
     increase_step_number
 
     unless @test.is_current_step?('evaluate', session[:step_number]) and @test.is_previous_step?('show_correct', session[:step_number])
-      @previous_question = unless @test.is_previous_step?('question', session[:step_number])
-        @test.questions[session[:number_of_answers] - 0]
-      else 
-        @test.questions[session[:number_of_answers] - 1]
+      previous_id = id = session[:number_of_answers]
+      previous_id -= 1 if @test.is_previous_step?('question', session[:step_number])
+      @previous_questions_test = @test.questions_tests.where("local_id = #{previous_id}")[0]
+
+      save_marked_answers(@previous_questions_test, params)
+
+      if @previous_questions_test.present? and @previous_questions_test.answered_correct?
+        session[:number_of_correct_answers] += 1 
       end
 
-      @questions_test = @test.find_questions_test_by_question(@previous_question)
-      save_marked_answers(@questions_test, params)
-
-      session[:number_of_correct_answers] += 1 if @questions_test.answered_correct?
-
-      @question = @test.questions[session[:number_of_answers]]
+      @questions_test = @test.questions_tests.where("local_id = #{id}")[0]
+      @question = @questions_test.question if @questions_test.present?
 
       session[:number_of_answers] += 1 if @test.is_current_step?('question', session[:step_number])
     end
@@ -53,18 +53,22 @@ class User::TestsController < ApplicationController
     @test = Test.new(test_params)
     @test.questions = Question.where(category_id: params["categories"]).order("RANDOM()").limit(test_params["number_of_questions"].to_i)
     @test.member_id = current_member.id
+
+    @test.questions_tests.each_with_index do |questions_test, index| 
+      questions_test.local_id = index 
+    end
     
     if @test.questions_size < test_params["number_of_questions"].to_i
       @test.number_of_questions = @test.questions_size
       notice = "There wasn't enough questions in the database! Number of questions: #{@test.number_of_questions}"
-    else 
+    else
       notice = 'Test was successfully created.'
     end
 
     if @test.save
       session[:step_number] = -1
       session[:number_of_answers] = 0
-      session[:number_of_correct_answers] = 0 
+      session[:number_of_correct_answers] = 0
       @test.create_steps(params[:show_results])
       redirect_to "/tests/#{@test.id}/answer_questions", notice: notice
     else

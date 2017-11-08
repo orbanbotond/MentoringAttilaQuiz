@@ -1,7 +1,7 @@
 doctype html
 html
   body
-    table
+    table id="answer_table"
       tr
         td style="width: 300px"
           = f.text_field :name
@@ -10,4 +10,3 @@ html
             span class="custom-control-input"
               = f.check_box :correct
             = link_to_remove_fields "Delete answer", f
-      br

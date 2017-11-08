@@ -4,15 +4,15 @@
 test:
   host: 'localhost:9200'
   prefix: 'test'
-development:
-  host: 'localhost:9200'
+# development:
+#   host: 'localhost:9200'
 # production:
 #   host: 'localhost:9200'
 
 # test:
 #   host: 'https://ulg9piyo2b:3nm2apv4qw@first-cluster-3630450058.us-east-1.bonsaisearch.net'
 #   prefix: 'test'
-# development:
-#   host: 'https://ulg9piyo2b:3nm2apv4qw@first-cluster-3630450058.us-east-1.bonsaisearch.net'
+development:
+  host: 'https://kguo3srajb:jp333vv9fn@first-cluster-1205114156.eu-central-1.bonsaisearch.net'
 production:
   host: 'https://ulg9piyo2b:3nm2apv4qw@first-cluster-3630450058.us-east-1.bonsaisearch.net'

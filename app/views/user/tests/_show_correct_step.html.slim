@@ -1,8 +1,8 @@
 = render 'result'
 
 h5
-  = f.label @questions_test.question_name
-  - @questions_test.question_answers_each do |answer|
+  = f.label @previous_questions_test.question_name
+  - @previous_questions_test.question_answers_each do |answer|
     div style="text-indent:30px"
-      = add_checkbox(f, @questions_test, answer)
-      = add_label(f, @questions_test, answer)
+      = add_checkbox(f, @previous_questions_test, answer)
+      = add_label(f, @previous_questions_test, answer)

@@ -9,7 +9,7 @@ class Test < ApplicationRecord
   attr_writer :current_step
 
   delegate :sort, :size, :to => :questions, :prefix => true
-  delegate :each, :size, :all, :paginate, :to => :questions_tests, :prefix => true
+  delegate :each, :size, :all, :order, :paginate, :to => :questions_tests, :prefix => true
 
   #[OK] TODO rename with_show_correct to something meaningfull
   def create_steps(show_correct_answers_option)

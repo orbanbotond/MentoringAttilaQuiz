@@ -5,6 +5,12 @@ hr
   label class="control-label" Select categories:
 
   -#[OK] TODO setup the neeeded collection in the controller please
+  div data-no-turbolink=""
+    p style="text-indent: 100px"
+      = check_box_tag "check_all"
+      = label_tag "Check/uncheck all categories"
+  hr
+
   - @categories.each do |category|
     p style="text-indent: 100px"
       = check_box_tag "categories[]", category.id

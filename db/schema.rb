@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171018103137) do
+ActiveRecord::Schema.define(version: 20171108141525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20171018103137) do
     t.integer "test_id"
     t.string "marked_answer"
     t.integer "answer_ids", default: [], array: true
+    t.integer "local_id"
     t.index ["question_id"], name: "index_questions_tests_on_question_id"
     t.index ["test_id"], name: "index_questions_tests_on_test_id"
   end
