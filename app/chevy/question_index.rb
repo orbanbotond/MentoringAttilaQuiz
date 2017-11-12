@@ -28,6 +28,7 @@ class QuestionIndex < Chewy::Index
   #mapping
   define_type Question.includes(:answers) do
     field :name, analyzer: 'name_analyzer', search_analyzer: 'term_analyzer' #, term_vector: 'with_positions_offsets'
+    field :category_id
     field :answers do
       field :name, analyzer: 'name_analyzer', search_analyzer: 'term_analyzer' #, term_vector: 'with_positions_offsets'
     end

@@ -7,12 +7,20 @@ class Admin::QuestionsController < ApplicationController
   def index
     # QuestionIndex.reset!
 
-    per_page = 10
-    if params[:search].present?
-      @question_indexes = SearchElastic.new(params[:search]).call.paginate(:per_page => per_page, :page => params[:page])
+    @categories = Category.all
+    category_id = if params[:category_id].present?
+      [params[:category_id].to_i]
     else
-      @question_indexes = QuestionIndex.all.paginate(:per_page => per_page, :page => params[:page])
+      @categories.map(&:id)
     end
+
+    per_page = 10
+
+    @question_indexes = SearchElastic
+      .new(params[:search], category_id)
+      .call
+      .paginate(:per_page => per_page, :page => params[:page])
+
     respond_to :html, :js
   end
 
