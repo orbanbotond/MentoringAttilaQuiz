@@ -7,10 +7,11 @@ class Admin::QuestionsController < ApplicationController
   def index
     # QuestionIndex.reset!
 
+    per_page = 10
     if params[:search].present?
-      @question_indexes = SearchElastic.new(params[:search]).call.paginate(:per_page => 2, :page => params[:page])
+      @question_indexes = SearchElastic.new(params[:search]).call.paginate(:per_page => per_page, :page => params[:page])
     else
-      @question_indexes = QuestionIndex.all.paginate(:per_page => 2, :page => params[:page])
+      @question_indexes = QuestionIndex.all.paginate(:per_page => per_page, :page => params[:page])
     end
     respond_to :html, :js
   end
@@ -45,6 +46,7 @@ class Admin::QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
+    @question.paper_trail.touch_with_version
     respond_to do |format|
       if @question.update(question_params)
         format.html { redirect_to admin_questions_url, notice: 'Question was successfully updated.' }

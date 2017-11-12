@@ -1,6 +1,8 @@
 class Question < ApplicationRecord
   resourcify
 
+  has_paper_trail
+
   belongs_to :category
   has_many :answers, :dependent => :destroy
   accepts_nested_attributes_for :answers, :allow_destroy => true 

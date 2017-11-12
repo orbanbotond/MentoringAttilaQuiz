@@ -1,7 +1,9 @@
 class Answer < ApplicationRecord
   resourcify
 
-  belongs_to :question
+  has_paper_trail
+
+  belongs_to :question, touch: true
   validates :name, presence: true, length: { in: 1..20 }
 
   update_index 'question#question' do

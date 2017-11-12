@@ -19,4 +19,8 @@ class QuestionsTest < ApplicationRecord
   def answer_marked?(answer)
     answer_ids.include? answer.id
   end
+
+  def get_question_version
+    question.paper_trail.version_at(test.created_at, has_many: true)
+  end
 end

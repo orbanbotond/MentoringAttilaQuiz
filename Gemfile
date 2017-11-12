@@ -15,6 +15,8 @@ gem 'devise'
 gem 'rolify'
 gem 'cancancan'
 
+gem 'paper_trail'
+
 gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'

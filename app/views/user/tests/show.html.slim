@@ -10,13 +10,15 @@ div style="width: 400px; margin: 0 auto;"
   = will_paginate @questions_tests
   
   - @questions_tests.each do |questions_test|
+    - question = questions_test.get_question_version
     h5
       - unless questions_test.nil?
-        = questions_test.question_name
+        = question.name
         br
         br
         = bootstrap_form_tag do |f|
-          - questions_test.question_answers_each do |answer|
+          - question.answers_each do |answer|
+            - answer = answer.paper_trail.version_at(questions_test.test.created_at)
             div style="text-indent:30px"
               = add_checkbox(f, questions_test, answer)
               = add_label(f, questions_test, answer)
