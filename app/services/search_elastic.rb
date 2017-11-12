@@ -17,22 +17,36 @@ class SearchElastic
               operator: "and"
             }
           },
-          filter: {
-            terms: {
-              category_id: @category_id
+          filter:  [
+            {
+              terms: {
+                category_id: @category_id
+              }
+            },
+            {
+              term: {
+                deleted: false
+              }
             }
-          }
+          ]
         }). highlight(
           fields: { "name" => {}, "answers.name" => {} } 
         )
     else
       QuestionIndex.query(
         bool:{
-          filter: {
-            terms: {
-              category_id: @category_id
+          filter: [
+            {
+              terms: {
+                category_id: @category_id
+              }
+            },
+            {
+              term: {
+                deleted: false
+              }
             }
-          }
+          ]
         }). highlight(
           fields: { "name" => {}, "answers.name" => {} } 
         )

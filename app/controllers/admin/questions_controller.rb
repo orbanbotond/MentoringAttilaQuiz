@@ -7,9 +7,13 @@ class Admin::QuestionsController < ApplicationController
   def index
     # QuestionIndex.reset!
 
+    p "******************"
+    p params
+    p "#####################"
+
     @categories = Category.all
-    category_id = if params[:category_id].present?
-      [params[:category_id].to_i]
+    category_id = if params[:category].present?
+      [params[:category].to_i]
     else
       @categories.map(&:id)
     end
@@ -17,7 +21,7 @@ class Admin::QuestionsController < ApplicationController
     per_page = 10
 
     @question_indexes = SearchElastic
-      .new(params[:search], category_id)
+      .new(params[:search_term], category_id)
       .call
       .paginate(:per_page => per_page, :page => params[:page])
 
@@ -40,6 +44,7 @@ class Admin::QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = Question.new(question_params)
+    @question.deleted = false
     respond_to do |format|
       if @question.save
         format.html { redirect_to admin_questions_url, notice: 'Question was successfully created.' }
@@ -69,7 +74,7 @@ class Admin::QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.json
   def destroy
-    @question.destroy
+    @question.update_attribute :deleted, true
     respond_to do |format|
       format.html { redirect_to admin_questions_url, notice: 'Question was successfully destroyed.' }
       format.json { head :no_content }

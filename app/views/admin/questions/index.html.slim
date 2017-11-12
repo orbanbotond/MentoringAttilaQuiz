@@ -4,9 +4,9 @@ div style="width: 400px; margin: 0 auto;"
   hr
 
   = bootstrap_form_tag(:url => url_for(:controller => 'questions', :action => 'index'), method: :get, layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-8") do |f|
-    = f.collection_select :category, Category.order(:name), :id, :name, {include_blank: 'All'}, {:class => 'category-selector'}
+    = f.collection_select :category, Category.order(:name), :id, :name, {include_blank: 'All', selected: params["category"]}, {:class => 'category-selector'}
     br
-    = f.text_field :search_term, class: 'searchable-field', autocomplete: "off", autofocus: ""
+    = f.text_field :search_term, class: 'searchable-field', autocomplete: "off", autofocus: "", value: params["search_term"]
 
   hr
 

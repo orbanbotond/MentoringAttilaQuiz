@@ -5,8 +5,8 @@ $(document).on 'turbolinks:load', ->
       type: 'GET'
       url: 'questions'
       data: {
-        'search': $('.searchable-field').val(), 
-        'category_id': $('.category-selector').val()
+        'search_term': $('.searchable-field').val(), 
+        'category': $('.category-selector').val()
       }
       dataType: "script"
   return
@@ -19,8 +19,8 @@ $(document).on 'turbolinks:load', ->
       type: 'GET'
       url: 'questions'
       data: {
-        'search': $('.searchable-field').val(), 
-        'category_id': $('.category-selector').val()
+        'search_term': $('.searchable-field').val(), 
+        'category': $('.category-selector').val()
       }
       dataType: "script"
   return

@@ -51,7 +51,7 @@ class User::TestsController < ApplicationController
   # POST /tests
   def create
     @test = Test.new(test_params)
-    @test.questions = Question.where(category_id: params["categories"]).order("RANDOM()").limit(test_params["number_of_questions"].to_i)
+    @test.questions = Question.where(category_id: params["categories"], deleted: false).order("RANDOM()").limit(test_params["number_of_questions"].to_i)
     @test.member_id = current_member.id
 
     @test.questions_tests.each_with_index do |questions_test, index| 
@@ -103,10 +103,12 @@ class User::TestsController < ApplicationController
     end
 
     def save_marked_answers(questions_test, params)
-      questions_test.question_answers_each do |answer|
-        questions_test.answer_ids << answer.id if params["#{answer.id}"] == "1"
+      if questions_test.present?
+        questions_test.question_answers_each do |answer|
+          questions_test.answer_ids << answer.id if params["#{answer.id}"] == "1"
+        end
+        questions_test.save
       end
-      questions_test.save
     end
 
     def increase_step_number
