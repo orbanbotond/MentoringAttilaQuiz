@@ -14,9 +14,15 @@ div style="width: 400px; margin: 0 auto"
 
     tbody
       - if @tests.size > 0
+        tr
+          th style="padding-right: 10px" Test taken on date
+          th Result
+          th
+          th
         - @tests.each do |test|
           tr
             td style="padding-right: 10px" = test.created_at.strftime("%Y-%m-%d %H:%M")
+            td style="padding-right: 10px" = "#{test.number_of_correct_answers} / #{test.questions_tests_size}"
             td style="padding-right: 10px" = link_to 'Show results', test
             td style="padding-right: 10px" = link_to 'Destroy', test, data: { confirm: 'Are you sure?' }, method: :delete
       - else
