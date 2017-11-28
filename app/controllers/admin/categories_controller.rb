@@ -3,6 +3,7 @@ class Admin::CategoriesController < ApplicationController
   load_and_authorize_resource
   # GET /categories
   def index
+    p current_ability
     @categories = Category.all
   end
 

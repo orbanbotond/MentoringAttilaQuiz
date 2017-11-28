@@ -76,4 +76,4 @@ production:
   <<: *default
   database: quiz_production
   username: postgres
-password: password
+  password: password

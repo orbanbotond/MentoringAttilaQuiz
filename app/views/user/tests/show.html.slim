@@ -1,3 +1,5 @@
+= title "Test result for quiz taken on #{@test.created_at.strftime("%d/%m/%Y")}"
+
 div style="width: 400px; margin: 0 auto;"
   h1 Test results
 
@@ -6,9 +8,7 @@ div style="width: 400px; margin: 0 auto;"
   = render 'result'
 
   hr
-
-  = will_paginate @questions_tests
-  
+ 
   - @questions_tests.each do |questions_test|
     - question = questions_test.get_question_version
     h5
@@ -22,6 +22,8 @@ div style="width: 400px; margin: 0 auto;"
             div style="text-indent:30px"
               = add_checkbox(f, questions_test, answer)
               = add_label(f, questions_test, answer)
+  
+  = will_paginate @questions_tests
   
   hr
   h4

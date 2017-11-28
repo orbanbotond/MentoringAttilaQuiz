@@ -105,7 +105,13 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+  
+  config.include Warden::Test::Helpers
+  Warden.test_mode!
 
+  config.after(:each) do
+    Warden.test_reset!
+  end
 end
 
 RSpec.configure do |config|

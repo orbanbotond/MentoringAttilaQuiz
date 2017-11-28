@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe 'tests' do
+  before(:each) do
+    member = FactoryGirl.create(:member)
+    login_as(member, :scope =>  :member)
+  end
+
   context 'generating new test' do
     context 'negative' do
       # it 'submit uncompleted form' do
