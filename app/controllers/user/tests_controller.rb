@@ -4,7 +4,10 @@ class User::TestsController < ApplicationController
   
   # GET /tests
   def index
-    @tests = Test.where("member_id = #{current_member.id}")
+    @tests = Test.
+      where("member_id = #{current_member.id}").
+      order("created_at DESC").
+      paginate(:per_page => 10, :page => params[:page])
   end
 
   def show
@@ -60,7 +63,7 @@ class User::TestsController < ApplicationController
     
     if @test.questions_size < test_params["number_of_questions"].to_i
       @test.number_of_questions = @test.questions_size
-      notice = "There wasn't enough questions in the database! Number of questions: #{@test.number_of_questions}"
+      notice = "There are not enough questions in the selected categories! Number of questions: #{@test.number_of_questions}"
     else
       notice = 'Test was successfully created.'
     end

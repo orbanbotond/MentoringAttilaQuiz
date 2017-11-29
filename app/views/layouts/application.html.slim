@@ -4,9 +4,11 @@ html
     title 
       = content_for?(:title) ? "Quiz - "+yield(:title) : 'Quiz'
     = csrf_meta_tags
-    
+
+
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
   body
 
     = navbar fixed: :top do
@@ -18,13 +20,9 @@ html
             = navbar_item 'Completed tests', '/tests'
             - if current_member.has_role? :admin
 
-              = navbar_dropdown 'Questions' do
-                = navbar_item 'Question list', '/admin/questions'
-                = navbar_item 'New question', '/admin/questions/new'
+              = navbar_item 'Questions', '/admin/questions'
 
-              = navbar_dropdown 'Categories' do
-                = navbar_item 'Category list', '/admin/categories'
-                = navbar_item 'New categories', '/admin/categories/new'
+              = navbar_item 'Categories', '/admin/categories'
 
         = navbar_group align:'right' do
           - if member_signed_in?
@@ -34,7 +32,5 @@ html
 
 
     div style="position:relative; margin-top:60px"
-      p class="notice" style="color:green" = notice
-      p class="alert" style="color:red" = alert
-
+      = custom_bootstrap_flash
       = yield

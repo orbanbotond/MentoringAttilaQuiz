@@ -6,11 +6,7 @@ class Admin::QuestionsController < ApplicationController
   # GET /questions.json
   def index
     # QuestionIndex.reset!
-
-    p "******************"
-    p params
-    p "#####################"
-
+    
     @categories = Category.all
     category_id = if params[:category].present?
       [params[:category].to_i]

@@ -10,4 +10,4 @@ div style="width: 400px; margin: 0 auto"
   h5
     = link_to 'Take another quiz', new_test_path, data: confirm_message(@test, session[:step_number])
   h5
-    = link_to 'Back to homepage', tests_path, data: confirm_message(@test, session[:step_number])
+    = link_to 'Back to test results', tests_path, data: confirm_message(@test, session[:step_number])
