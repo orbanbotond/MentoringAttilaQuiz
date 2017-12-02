@@ -67,4 +67,8 @@ class Member::RegistrationsController < Devise::RegistrationsController
     def account_update_params
       params.require(:member).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password)
     end
+
+    def after_inactive_sign_up_path_for(resource_or_scope)
+      '/members/sign_in'
+    end
 end

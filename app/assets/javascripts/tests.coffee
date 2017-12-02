@@ -8,3 +8,8 @@ $(document).on 'turbolinks:load', ->
     for checkBox in checkBoxes
       checkBox.checked = document.getElementById("check_all").checked
     return false
+
+$(document).on 'turbolinks:load', ->
+  $('tr[data-link]').click ->
+    window.location = $(this).data("link")
+    return

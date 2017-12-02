@@ -20,8 +20,7 @@ hr
 
   hr
 
-  = check_box_tag "show_results"
-  = label_tag "Show results on every step?"
+  label #{check_box_tag 'show_results'} Show results on every step
 
   div style="text-align: center"
     = f.submit "Start quiz", label_col: "col-sm-5"

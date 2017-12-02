@@ -5,26 +5,20 @@ div style="width: 400px; margin: 0 auto"
 
   hr
 
-  table
-    thead
-      tr
-        th
-        th
-        th
-
-    tbody
-      - if @tests.size > 0
+  - if @tests.size > 0
+    table class="table table-hover"
+      thead
         tr
           th style="padding-right: 10px" Test taken on date
           th Result
-          th
-          th
+
+      tbody
         - @tests.each do |test|
-          tr
-            td style="padding-right: 10px" = test.created_at.strftime("%Y-%m-%d %H:%M")
-            td style="padding-right: 10px" = "#{test.number_of_correct_answers} / #{test.questions_tests_size}"
-            td style="padding-right: 10px" = link_to 'Show results', test
-            td style="padding-right: 10px" = link_to 'Destroy', test, data: { confirm: 'Are you sure?' }, method: :delete
-      - else
-        h5 No tests found
-  = will_paginate @tests
+          tr data-link="tests/#{test.id}"
+            td style="padding-right: 10px" 
+              = link_to test.created_at.strftime("%Y-%m-%d %H:%M"), test
+            td style="padding-right: 10px" 
+              = link_to "#{test.number_of_correct_answers} / #{test.questions_tests_size}", test
+        = will_paginate @tests
+  - else
+    h5 No tests found

@@ -1,5 +1,5 @@
 $ ->
 
-  $("body").on "click", ".pagination a", ->
+  $("window").on "click", ".pagination a", ->
     $.getScript @href
     return false
