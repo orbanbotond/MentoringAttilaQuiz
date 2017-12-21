@@ -1,0 +1,28 @@
+/= title "Categories"
+
+doctype html
+html
+  head
+    title Slim example
+  body
+    div style="width: 400px; margin: 0 auto;"
+      h2 Categories
+      hr
+
+      h4
+        = link_to 'Add new category', '/admin/categories/new'
+
+      hr
+
+      table class="table table-hover"
+        tr
+          th Name
+          th Number of questions
+          th
+        - model.each do |category|
+          tr
+            td = category.name
+            td
+              = category.number_of_questions
+            td
+              = link_to "Edit", edit_admin_category_path(category), {:style => "font-size: 14px;"}

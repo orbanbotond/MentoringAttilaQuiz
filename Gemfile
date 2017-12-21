@@ -11,6 +11,19 @@ gem 'rails', '~> 5.1.1'
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 
+#TRAILBLAZER
+
+  gem "simple_form"
+  # gem "formular", github: "trailblazer/formular"
+  gem "dry-validation"
+
+  gem "trailblazer", ">= 2.0.3"
+  gem "trailblazer-rails"
+  gem "trailblazer-cells"
+  gem "cells-rails"
+  gem "cells-slim"
+  gem 'formular'
+
 gem 'devise'
 gem 'rolify'
 gem 'cancancan'
@@ -29,7 +42,7 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'bootstrap-sass', '~> 3.3'
 gem 'bootstrap_form'
-gem 'rails_bootstrap_navbar'
+gem 'rails_bootstrap_navbar' # TODO: delete after trailblazer arhitecture finalized
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

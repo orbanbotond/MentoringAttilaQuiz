@@ -1,0 +1,48 @@
+doctype html
+html
+  head
+    title 
+      / TODO:: Page titles
+      /= content_for?(:title) ? "Quiz - "+yield(:title) : 'Quiz'
+    = csrf_meta_tags
+
+
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+  body
+
+    nav class="navbar navbar-fixed-top navbar-default" role="navigation"
+      div class="container"
+        div class="navbar-header"
+          button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapsable"
+            span class="sr-only" Toggle navigation
+          a href="/" class="navbar-brand" MentoringAttilaQuiz
+        div class="collapse navbar-collapse" id="navbar-collapsable"
+          ul class="nav navbar-nav foo" id="menu"
+            - if member_signed_in?
+              li
+                a href="/tests/new" New test
+              li
+                a href="/tests" Completed tests
+              - if current_member.has_role? :admin
+                li
+                  a href="/admin/questions" Questions
+                li
+                  a href="/admin/categories" Categories
+          ul class="nav navbar-nav navbar-right" align="right"
+            - if member_signed_in?
+              li class="dropdown"
+                a href="#" class="dropdown-toggle" data-toggle="dropdown" 
+                  = "Logged in as #{current_member.first_name} #{current_member.last_name}" 
+                  b class="caret"
+                ul class="dropdown-menu"
+                  li
+                    a href="/members/edit" Edit profile
+                  li
+                    a href="/members/sign_out" method="delete" Logout
+
+    div style="position:relative; margin-top:60px"
+      / TODO: implement flash messages
+      /= custom_bootstrap_flash
+      = yield
