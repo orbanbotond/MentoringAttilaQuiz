@@ -12,8 +12,8 @@ module ApplicationHelper
       text = "<script>toastr.#{type}('#{message}');</script>"
       flash_messages << text.html_safe if message
     end
-  flash_messages.join("\n").html_safe
-end
+    flash_messages.join("\n").html_safe
+  end
 
   def link_to_remove_fields(name, f)
     f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")

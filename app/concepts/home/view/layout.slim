@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title 
+    /title 
       / TODO:: Page titles
       /= content_for?(:title) ? "Quiz - "+yield(:title) : 'Quiz'
     = csrf_meta_tags
@@ -45,4 +45,14 @@ html
     div style="position:relative; margin-top:60px"
       / TODO: implement flash messages
       /= custom_bootstrap_flash
+
+      / - flash_messages = []
+      / - flash.each do |type, message|
+      /   - type = 'success' if type == 'notice'
+      /   - type = 'error'   if type == 'alert'
+      /   - text = "<script>toastr.#{type}('#{message}');</script>"
+      /   - flash_messages << text.html_safe if message
+      / - flash_messages.join("\n").html_safe
+      / = flash_messages
+
       = yield

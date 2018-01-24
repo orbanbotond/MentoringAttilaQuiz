@@ -9,7 +9,7 @@ module Category::Contract
     property :description
 
     validation do
-      required(:name).filled
+      required(:name).filled(min_size?: 2)
     end
   end
 end

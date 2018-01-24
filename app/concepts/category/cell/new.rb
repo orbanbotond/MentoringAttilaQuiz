@@ -1,8 +1,7 @@
 module Category::Cell
   class New < Trailblazer::Cell
-    include BootstrapForm::Helper
-    include ActionView::Helpers::FormHelper
-
-    include Formular::RailsHelper
+    include ActionView::RecordIdentifier
+    include ActionView::Helpers::FormOptionsHelper
+    include SimpleForm::ActionViewExtensions::FormHelper
   end
 end

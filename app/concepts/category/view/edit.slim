@@ -2,21 +2,22 @@
 
 doctype html
 html
-  div style="width: 400px; margin: 0 auto;"
-    = link_to 'Back to categories', admin_categories_path, {:class => 'h3', :style=>'color: 0;'}
-    hr
+  head
+    title Edit category
+  body
+    div style="width: 400px; margin: 0 auto;"
+      = link_to 'Back to categories', admin_categories_path, {:class => 'h3', :style=>'color: 0;'}
+      hr
 
-    -p "####################3"
-    - p model["contract"]
-    = form(model["contract.default"], "admin/categories/#{model.id}", builder: :bootstrap3) do |f|
-      = f.input :name, label: "Name"
-      = f.input :description, label: "Description"
-      br
-      div style="text-align: center"
-        = f.submit content: "Update category"
+      = simple_form_for [:admin, model], :validate=>false do |f|
+        .row
+          .col-sm-12
+            = f.input :name, required: false
+        .row
+          .col-sm-12
+            = f.input :description, required: false
+        .row
+          .col-sm-12
+            = f.button :submit
 
-    = bootstrap_form_for([:admin, model], layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9") do |f|
-      = f.text_field :name
-      = f.text_area :description
-      div style="text-align: center"
-        = f.submit "Save category", label_col: "col-sm-3"
+      = button_to 'Delete category', [:admin, model], method: :delete, class: "btn btn-default", data: { confirm: 'Are you sure?' }

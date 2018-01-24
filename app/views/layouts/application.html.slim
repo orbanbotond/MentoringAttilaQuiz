@@ -1,8 +1,9 @@
 doctype html
 html
   head
-    title 
-      = content_for?(:title) ? "Quiz - "+yield(:title) : 'Quiz'
+    /title 
+      /= content_for?(:title) ? "Quiz - "+yield(:title) : 'Quiz'
+
     = csrf_meta_tags
 
 
@@ -10,7 +11,6 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
   body
-
     = navbar fixed: :top do
       = navbar_header brand: 'MentoringAttilaQuiz'
       = navbar_collapse do

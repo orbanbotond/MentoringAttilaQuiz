@@ -2,13 +2,20 @@
 
 doctype html
 html
-  div style="width: 400px; margin: 0 auto;"
-    = link_to 'Back to categories', admin_categories_path, {:class => 'h3', :style=>'color: 0;'}
-    hr
+  head
+    title New category
+  body
+    div style="width: 400px; margin: 0 auto;"
+      = link_to 'Back to categories', admin_categories_path, {:class => 'h3', :style=>'color: 0;'}
+      hr
 
-    = form(model["contract"], admin_categories_path, builder: :bootstrap3) do |f|
-      = f.input :name, label: "Name"
-      = f.input :description, label: "Description"
-      br
-      div style="text-align: center"
-        = f.submit content: "Create category"
+      = simple_form_for [:admin, model] do |f|
+        .row
+          .col-sm-12
+            = f.input :name, required: false
+        .row
+          .col-sm-12
+            = f.input :description, required: false
+        .row
+          .col-sm-12
+            = f.button :submit
