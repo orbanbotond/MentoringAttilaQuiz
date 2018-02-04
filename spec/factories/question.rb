@@ -1,5 +1,7 @@
 FactoryGirl.define do
   factory :question do
+    name 'myQuestion'
+    deleted false
     category
 
     after(:build) do |question|

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  mount API => '/'
+
   devise_for :members, controllers: {
     confirmations: 'member/confirmations',
     #omniauth_callbacks: 'member/omniauth_callbacks',

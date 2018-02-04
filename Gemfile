@@ -17,6 +17,8 @@ gem 'cancancan'
 
 gem 'paper_trail'
 
+gem 'grape'
+
 gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
@@ -51,6 +53,10 @@ group :development, :test, :production do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.14'
   gem 'rspec-rails', '~> 3.5'
+
+  # grape API spec helper
+  gem 'rspec-grape'
+
   gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'slim', '~> 3.0'

@@ -39,6 +39,8 @@ class Admin::QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
+    p "*********************"
+    p question_params
     @question = Question.new(question_params)
     @question.deleted = false
     respond_to do |format|
@@ -57,6 +59,8 @@ class Admin::QuestionsController < ApplicationController
   def update
     @question.paper_trail.touch_with_version
     respond_to do |format|
+      p "--------------------------------------"
+      p question_params
       if @question.update(question_params)
         format.html { redirect_to admin_questions_url, notice: 'Question was successfully updated.' }
         format.json { render :index, status: :ok, location: @question }
